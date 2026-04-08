@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIG FINANZAS — Panel de Administrador</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#e84393;--pink-pale:#fdf2f8;
+  --navy:#0a1628;--navy2:#0d1f3c;
+  --blue:#3b82f6;--blue-pale:#eff6ff;
+  --green:#10b981;--green-pale:#ecfdf5;
+  --amber:#f59e0b;--amber-pale:#fffbeb;
+  --red:#ef4444;--red-pale:#fef2f2;
+  --bg:#f0f4ff;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Plus Jakarta Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* LOGIN */
+#admin-login{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--navy) 0%,#1a0a2e 50%,var(--navy) 100%);
+}
+.login-box{
+  background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);border-radius:20px;
+  padding:40px;width:360px;
+}
+.login-box h1{color:#fff;font-size:22px;font-weight:800;margin-bottom:4px}
+.login-box p{color:rgba(255,255,255,0.45);font-size:13px;margin-bottom:28px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.field input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:var(--rs);color:#fff;font-family:inherit;font-size:14px}
+.field input:focus{outline:none;border-color:var(--pink)}
+.btn-admin-login{width:100%;padding:12px;background:linear-gradient(135deg,var(--pink),#9333ea);border:none;border-radius:var(--rs);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.2s}
+.btn-admin-login:hover{opacity:0.9}
+.login-err{color:#f87171;font-size:12px;text-align:center;margin-top:10px;min-height:18px}
+
+/* MAIN */
+#admin-app{display:none}
+.topbar{
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;
+}
+.topbar-brand{display:flex;align-items:center;gap:10px}
+.topbar-brand .logo{font-size:24px;animation:float 3s ease-in-out infinite}
+.topbar-brand h1{color:#fff;font-size:18px;font-weight:800}
+.topbar-brand span{color:rgba(255,255,255,0.4);font-size:12px;margin-left:8px}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;font-family:inherit}
+.btn-pink{background:var(--pink);color:#fff}
+.btn-pink:hover{background:#d13580}
+.btn-ghost{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)}
+.btn-ghost:hover{background:rgba(255,255,255,0.18)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#0da271}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:#dc2626}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-sm{padding:5px 12px;font-size:12px}
+
+.content{padding:28px 32px;max-width:1400px;margin:0 auto}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kpi-card{background:var(--card);border-radius:var(--r);padding:20px;border:1px solid var(--border)}
+.kpi-icon{font-size:28px;margin-bottom:10px}
+.kpi-label{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.kpi-val{font-size:26px;font-weight:800}
+.kpi-sub{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* FILTERS */
+.filters{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.filter-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all 0.15s;font-family:inherit}
+.filter-pill:hover,.filter-pill.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.search-input{padding:8px 14px;border:1px solid var(--border);border-radius:var(--rs);font-family:inherit;font-size:13px;background:var(--card);width:220px}
+.search-input:focus{outline:none;border-color:var(--pink)}
+
+/* TABLE */
+.table-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.table-title{font-size:16px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border);background:var(--bg)}
+td{padding:12px 16px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.badge{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-green{background:var(--green-pale);color:#065f46}
+.badge-red{background:var(--red-pale);color:#991b1b}
+.badge-amber{background:var(--amber-pale);color:#92400e}
+.badge-blue{background:var(--blue-pale);color:#1e40af}
+.badge-gray{background:#f1f5f9;color:#475569}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;display:none;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:var(--r);padding:28px;width:480px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.modal h2{font-size:18px;font-weight:800;margin-bottom:20px}
+.form-group{margin-bottom:14px;display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid var(--border);border-radius:var(--rs);font-family:inherit;font-size:13px;color:var(--text)}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--pink)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.section-divider{margin:28px 0 20px;font-size:18px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px}
+.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Toast */
+#toast{position:fixed;bottom:24px;right:24px;z-index:800;background:var(--text);color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;max-width:320px}
+#toast.show{opacity:1;transform:translateY(0)}
+#toast.success{background:#065f46}
+#toast.error{background:#991b1b}
+#toast.warn{background:#92400e}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN ADMIN -->
+<div id="admin-login">
+  <div class="login-box">
+    <div style="font-size:36px;margin-bottom:12px;text-align:center">🐷</div>
+    <h1 style="text-align:center">Panel de Administrador</h1>
+    <p style="text-align:center">PIG FINANZAS by Mateo</p>
+    <div class="field">
+      <label>Contraseña de administrador</label>
+      <input type="password" id="admin-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <div class="login-err" id="admin-err"></div>
+    <button class="btn-admin-login" onclick="adminLogin()">Entrar al panel</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="admin-app">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="logo">🐷</div>
+      <h1>Panel Admin</h1>
+      <span>PIG FINANZAS by Mateo</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-pink" onclick="openModal('nuevo-usuario')">+ Agregar usuario</button>
+      <button class="btn btn-ghost" onclick="loadData()">↻ Actualizar</button>
+      <button class="btn btn-ghost" onclick="adminLogout()">↩ Salir</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- KPIs -->
+    <div class="kpi-grid" id="kpi-grid">
+      <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-label">Total usuarios</div><div class="kpi-val" id="kpi-total">—</div></div>
+      <div class="kpi-card"><div class="kpi-icon">✅</div><div class="kpi-label">Activos</div><div class="kpi-val" id="kpi-activos" style="color:var(--green)">—</div></div>
+      <div class="kpi-card"><div class="kpi-icon">⏳</div><div class="kpi-label">Pendientes</div><div class="kpi-val" id="kpi-pendientes" style="color:var(--amber)">—</div></div>
+      <div class="kpi-card"><div class="kpi-icon">💸</div><div class="kpi-label">Vencen pronto</div><div class="kpi-val" id="kpi-vencen" style="color:var(--red)">—</div></div>
+    </div>
+
+    <!-- Filters + table -->
+    <div class="section-divider">👥 Usuarios</div>
+    <div class="filters">
+      <button class="filter-pill active" onclick="filterUsers('todos',this)">Todos</button>
+      <button class="filter-pill" onclick="filterUsers('activo',this)">Activos</button>
+      <button class="filter-pill" onclick="filterUsers('inactivo',this)">Pendientes</button>
+      <button class="filter-pill" onclick="filterUsers('vencido',this)">Vencidos</button>
+      <input class="search-input" placeholder="Buscar por nombre o empresa..." oninput="searchUsers(this.value)">
+      <div style="margin-left:auto;font-size:12px;color:var(--muted)" id="last-update"></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-title">Gestión de usuarios</div>
+        <div style="font-size:12px;color:var(--muted)" id="user-count"></div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Empresa</th>
+            <th>Email</th>
+            <th>Plan</th>
+            <th>Estado</th>
+            <th>Vencimiento</th>
+            <th>Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+          <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /admin-app -->
+
+<!-- MODAL: Nuevo usuario -->
+<div class="overlay" id="modal-nuevo-usuario">
+  <div class="modal">
+    <h2>+ Agregar usuario</h2>
+    <div class="form-group"><label>Usuario (sin espacios)</label><input type="text" id="nu-user" placeholder="ej: empresa01"></div>
+    <div class="form-group"><label>Contraseña inicial</label><input type="text" id="nu-pass" placeholder="ej: PIG2026" value="PIG2026"></div>
+    <div class="form-group"><label>Nombre de empresa</label><input type="text" id="nu-empresa" placeholder="Ej: Muebles Corrientes SA"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="nu-email" placeholder="contacto@empresa.com"></div>
+    <div class="form-group"><label>Plan</label>
+      <select id="nu-plan"><option value="mensual">Mensual</option><option value="trimestral">Trimestral</option><option value="anual">Anual</option><option value="prueba">Prueba 7 días</option></select>
+    </div>
+    <div class="form-group"><label>Vencimiento</label><input type="date" id="nu-venc"></div>
+    <div class="form-group"><label>Notas internas</label><textarea id="nu-notas" rows="2" placeholder="Ej: pagó por transferencia el 01/04/26..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('nuevo-usuario')" style="color:var(--text)">Cancelar</button>
+      <button class="btn btn-pink btn-sm" onclick="crearUsuario()">Crear usuario activo</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Editar usuario -->
+<div class="overlay" id="modal-editar">
+  <div class="modal">
+    <h2 id="edit-title">Editar usuario</h2>
+    <input type="hidden" id="edit-id">
+    <div class="form-group"><label>Empresa</label><input type="text" id="edit-empresa"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="edit-email"></div>
+    <div class="form-group"><label>Nueva contraseña (dejar vacío = no cambiar)</label><input type="text" id="edit-pass" placeholder="Nueva contraseña..."></div>
+    <div class="form-group"><label>Plan</label>
+      <select id="edit-plan"><option value="mensual">Mensual</option><option value="trimestral">Trimestral</option><option value="anual">Anual</option><option value="prueba">Prueba 7 días</option></select>
+    </div>
+    <div class="form-group"><label>Fecha de vencimiento</label><input type="date" id="edit-venc"></div>
+    <div class="form-group"><label>Estado</label>
+      <select id="edit-activo"><option value="true">✅ Activo</option><option value="false">🚫 Desactivado</option></select>
+    </div>
+    <div class="form-group"><label>Notas internas</label><textarea id="edit-notas" rows="3"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('editar')" style="color:var(--text)">Cancelar</button>
+      <button class="btn btn-pink btn-sm" onclick="guardarEdicion()">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+var SB_URL='https://mdetupblkjrazlwuyloq.supabase.co';
+var SB_KEY='sb_publishable_NZG262odQvO7ZEOdoECwDQ_f7-BGiJw';
+// CAMBIÁ ESTO — es tu contraseña secreta de admin
+var ADMIN_PASS='PigAdmin2026!';
+
+var allUsers=[];
+var currentFilter='todos';
+var currentSearch='';
+
+// ---- AUTH ----
+function adminLogin(){
+  var p=document.getElementById('admin-pass').value;
+  if(p!==ADMIN_PASS){document.getElementById('admin-err').textContent='Contraseña incorrecta';return}
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-app').style.display='block';
+  loadData();
+  setInterval(loadData,30000); // auto-refresh every 30s
+}
+function adminLogout(){
+  document.getElementById('admin-login').style.display='flex';
+  document.getElementById('admin-app').style.display='none';
+  document.getElementById('admin-pass').value='';
+}
+
+// ---- SUPABASE ----
+async function sb(path,method,body){
+  var opts={method:method||'GET',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=representation'}};
+  if(body) opts.body=JSON.stringify(body);
+  var r=await fetch(SB_URL+'/rest/v1/'+path,opts);
+  if(!r.ok){var e=await r.json().catch(function(){return{};});throw new Error(e.message||r.status);}
+  return r.status===204?null:r.json();
+}
+
+// ---- LOAD DATA ----
+async function loadData(){
+  try{
+    allUsers=await sb('usuarios?select=*&order=fecha_registro.desc');
+    renderTable(allUsers);
+    renderKPIs(allUsers);
+    document.getElementById('last-update').textContent='Actualizado: '+new Date().toLocaleTimeString('es-AR');
+  }catch(e){toast('Error cargando datos: '+e.message,'error');}
+}
+
+function renderKPIs(users){
+  var activos=users.filter(function(u){return u.activo;}).length;
+  var pendientes=users.filter(function(u){return !u.activo;}).length;
+  var ahora=new Date();
+  var vencenProto=users.filter(function(u){
+    if(!u.fecha_vencimiento||!u.activo) return false;
+    var dias=(new Date(u.fecha_vencimiento)-ahora)/(1000*60*60*24);
+    return dias>=0&&dias<=7;
+  }).length;
+  document.getElementById('kpi-total').textContent=users.length;
+  document.getElementById('kpi-activos').textContent=activos;
+  document.getElementById('kpi-pendientes').textContent=pendientes;
+  document.getElementById('kpi-vencen').textContent=vencenProto;
+}
+
+function filterUsers(tipo,btn){
+  currentFilter=tipo;
+  document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  applyFilters();
+}
+function searchUsers(q){currentSearch=q;applyFilters();}
+function applyFilters(){
+  var ahora=new Date();
+  var filtered=allUsers.filter(function(u){
+    if(currentFilter==='activo'&&!u.activo) return false;
+    if(currentFilter==='inactivo'&&u.activo) return false;
+    if(currentFilter==='vencido'&&(!u.fecha_vencimiento||new Date(u.fecha_vencimiento)>=ahora)) return false;
+    if(currentSearch){
+      var q=currentSearch.toLowerCase();
+      if(!u.username.includes(q)&&!u.empresa.toLowerCase().includes(q)&&!(u.email||'').toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+  renderTable(filtered);
+}
+
+function renderTable(users){
+  document.getElementById('user-count').textContent=users.length+' usuario'+(users.length!==1?'s':'');
+  var ahora=new Date();
+  if(!users.length){
+    document.getElementById('tabla-usuarios').innerHTML='<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)">No hay usuarios en esta categoría</td></tr>';
+    return;
+  }
+  document.getElementById('tabla-usuarios').innerHTML=users.map(function(u){
+    var venc=u.fecha_vencimiento?new Date(u.fecha_vencimiento):null;
+    var diasVenc=venc?Math.ceil((venc-ahora)/(1000*60*60*24)):null;
+    var estadoBadge=u.activo
+      ?'<span class="badge badge-green">✅ Activo</span>'
+      :'<span class="badge badge-amber">⏳ Pendiente</span>';
+    var vencBadge='<span class="badge badge-gray">Sin fecha</span>';
+    if(venc){
+      if(diasVenc<0) vencBadge='<span class="badge badge-red">Vencido</span>';
+      else if(diasVenc<=7) vencBadge='<span class="badge badge-amber">'+diasVenc+'d</span>';
+      else vencBadge='<span style="font-size:12px">'+venc.toLocaleDateString("es-AR")+'</span>';
+    }
+    var planBadge={mensual:'badge-blue',trimestral:'badge-blue',anual:'badge-green',prueba:'badge-amber'};
+    return '<tr>'+
+      '<td><strong>'+u.username+'</strong></td>'+
+      '<td>'+u.empresa+'</td>'+
+      '<td style="color:var(--muted);font-size:12px">'+(u.email||'—')+'</td>'+
+      '<td><span class="badge '+(planBadge[u.plan]||'badge-gray')+'">'+( u.plan||'mensual')+'</span></td>'+
+      '<td>'+estadoBadge+'</td>'+
+      '<td>'+vencBadge+'</td>'+
+      '<td style="color:var(--muted);font-size:12px">'+new Date(u.fecha_registro).toLocaleDateString('es-AR')+'</td>'+
+      '<td>'+
+        '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+          (u.activo
+            ?'<button class="btn btn-red btn-sm" data-id="'+u.id+'" data-action="deactivate">Desactivar</button>'
+            :'<button class="btn btn-green btn-sm" data-id="'+u.id+'" data-action="activate">Activar</button>')+
+          '<button class="btn btn-pink btn-sm" data-id="'+u.id+'" data-action="edit">Editar</button>'+
+          '<button class="btn btn-ghost btn-sm" style="color:var(--red);border-color:var(--red)" data-id="'+u.id+'" data-username="'+u.username+'" data-action="delete">✕</button>'+
+        '</div>'+
+      '</td>'+
+    '</tr>';
+  }).join('');
+}
+
+// ---- ACCIONES ----
+async function toggleActivo(id,activo){
+  try{
+    await sb('usuarios?id=eq.'+id,'PATCH',{activo:activo});
+    toast(activo?'✅ Usuario activado':'🚫 Usuario desactivado',activo?'success':'');
+    loadData();
+  }catch(e){toast('Error: '+e.message,'error');}
+}
+
+async function crearUsuario(){
+  var user=document.getElementById('nu-user').value.trim().toLowerCase();
+  var pass=document.getElementById('nu-pass').value.trim();
+  var empresa=document.getElementById('nu-empresa').value.trim();
+  var email=document.getElementById('nu-email').value.trim();
+  var plan=document.getElementById('nu-plan').value;
+  var venc=document.getElementById('nu-venc').value;
+  var notas=document.getElementById('nu-notas').value.trim();
+  if(!user||!pass||!empresa){toast('Completá usuario, contraseña y empresa','error');return}
+  try{
+    await sb('usuarios','POST',{
+      username:user,pass_hash:btoa(pass),empresa,email:email||null,
+      plan,activo:true,
+      fecha_vencimiento:venc?new Date(venc).toISOString():null,
+      notas:notas||null
+    });
+    toast('✅ Usuario creado y activado','success');
+    closeModal('nuevo-usuario');
+    loadData();
+    // Clear form
+    ['nu-user','nu-pass','nu-empresa','nu-email','nu-notas'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('nu-venc').value='';
+  }catch(e){toast('Error: '+e.message,'error');}
+}
+
+function editarUsuario(id){
+  var u=allUsers.find(function(x){return x.id===id;});
+  if(!u) return;
+  document.getElementById('edit-id').value=u.id;
+  document.getElementById('edit-title').textContent='Editar: '+u.username;
+  document.getElementById('edit-empresa').value=u.empresa;
+  document.getElementById('edit-email').value=u.email||'';
+  document.getElementById('edit-pass').value='';
+  document.getElementById('edit-plan').value=u.plan||'mensual';
+  document.getElementById('edit-venc').value=u.fecha_vencimiento?u.fecha_vencimiento.slice(0,10):'';
+  document.getElementById('edit-activo').value=u.activo?'true':'false';
+  document.getElementById('edit-notas').value=u.notas||'';
+  openModal('editar');
+}
+
+async function guardarEdicion(){
+  var id=document.getElementById('edit-id').value;
+  var patch={
+    empresa:document.getElementById('edit-empresa').value.trim(),
+    email:document.getElementById('edit-email').value.trim()||null,
+    plan:document.getElementById('edit-plan').value,
+    activo:document.getElementById('edit-activo').value==='true',
+    fecha_vencimiento:document.getElementById('edit-venc').value?new Date(document.getElementById('edit-venc').value).toISOString():null,
+    notas:document.getElementById('edit-notas').value.trim()||null
+  };
+  var newPass=document.getElementById('edit-pass').value.trim();
+  if(newPass) patch.pass_hash=btoa(newPass);
+  try{
+    await sb('usuarios?id=eq.'+id,'PATCH',patch);
+    toast('✅ Usuario actualizado','success');
+    closeModal('editar');
+    loadData();
+  }catch(e){toast('Error: '+e.message,'error');}
+}
+
+async function eliminarUsuario(id,username){
+  if(!confirm('¿Eliminar al usuario "'+username+'" y TODOS sus datos? Esta acción no se puede deshacer.')) return;
+  try{
+    await sb('usuarios?id=eq.'+id,'DELETE');
+    toast('Usuario eliminado','');
+    loadData();
+  }catch(e){toast('Error: '+e.message,'error');}
+}
+
+// ---- UTILS ----
+function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');}
+document.querySelectorAll('.overlay').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
+
+// Event delegation for table action buttons
+document.getElementById('tabla-usuarios').addEventListener('click',function(e){
+  var btn=e.target.closest('button[data-action]');
+  if(!btn) return;
+  var id=btn.dataset.id;
+  var action=btn.dataset.action;
+  if(action==='activate') toggleActivo(id,true);
+  else if(action==='deactivate') toggleActivo(id,false);
+  else if(action==='edit') editarUsuario(id);
+  else if(action==='delete') eliminarUsuario(id,btn.dataset.username);
+});
+
+function today(){return new Date().toISOString().slice(0,10);}
+document.getElementById('nu-venc').value=new Date(Date.now()+30*24*60*60*1000).toISOString().slice(0,10);
+
+function toast(msg,type){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.className='show '+(type||'');
+  clearTimeout(t._t);t._t=setTimeout(function(){t.className='';},3500);
+}
+</script>
+</body>
+</html>

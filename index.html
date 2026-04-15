@@ -612,7 +612,15 @@ textarea{resize:vertical;min-height:80px}
             <div class="form-grid">
               <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha"></div>
               <div class="form-group"><label>Proveedor</label><input type="text" id="c-proveedor" placeholder="Nombre del proveedor"></div>
-              <div class="form-group"><label>Producto</label><input type="text" id="c-producto" placeholder="Nombre del producto"></div>
+              <div class="form-group"><label>Producto</label>
+                <select id="c-producto" onchange="onCompraProductoChange()">
+                  <option value="">— Seleccioná un producto —</option>
+                </select>
+              </div>
+              <div class="form-group full" id="c-nuevo-producto-row" style="display:none">
+                <label>Nombre del nuevo producto</label>
+                <input type="text" id="c-producto-nuevo" placeholder="Ej: Remera talle M, Mesa de roble...">
+              </div>
               <div class="form-group"><label>Cantidad</label><input type="number" id="c-cantidad" min="1" value="1" oninput="calcCompra()"></div>
               <div class="form-group"><label>Precio unitario</label><input type="number" id="c-precio" placeholder="0.00" oninput="calcCompra()"></div>
               <div class="form-group"><label>Forma de pago</label><select id="c-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Cuenta corriente</option></select></div>
@@ -1227,12 +1235,12 @@ function defaultDB(){
   return {
     ventas:[],compras:[],gastos:[],asientos:[],movStock:[],cuentasExtra:[],currentMonth:new Date().getMonth(),
     stock:{
-      'Mesa de madera':{cant:12,costo:4500,min:5},
-      'Silla tapizada':{cant:30,costo:1800,min:10},
-      'Escritorio':{cant:4,costo:8200,min:3},
-      'Estante pared':{cant:2,costo:2100,min:5},
-      'Sofá 3 cuerpos':{cant:8,costo:15000,min:3},
-      'Cama 2 plazas':{cant:6,costo:12000,min:3},
+      'Mesa de madera':{cant:12,costo:4500,min:5,lotes:[{fecha:'2026-01-10',cantidad:12,costoUnit:4500,cantRestante:12}]},
+      'Silla tapizada':{cant:30,costo:1800,min:10,lotes:[{fecha:'2026-01-15',cantidad:30,costoUnit:1800,cantRestante:30}]},
+      'Escritorio':{cant:4,costo:8200,min:3,lotes:[{fecha:'2026-02-01',cantidad:4,costoUnit:8200,cantRestante:4}]},
+      'Estante pared':{cant:2,costo:2100,min:5,lotes:[{fecha:'2026-02-10',cantidad:2,costoUnit:2100,cantRestante:2}]},
+      'Sofa 3 cuerpos':{cant:8,costo:15000,min:3,lotes:[{fecha:'2026-02-20',cantidad:8,costoUnit:15000,cantRestante:8}]},
+      'Cama 2 plazas':{cant:6,costo:12000,min:3,lotes:[{fecha:'2026-03-01',cantidad:6,costoUnit:12000,cantRestante:6}]},
     }
   };
 }
@@ -1481,7 +1489,25 @@ function guardarVenta(){
   if(!stock){toast('Producto no encontrado en stock','error');return}
   if(stock.cant<cantidad){toast(`Stock insuficiente: solo hay ${stock.cant} unidades`,'error');return}
   const total=cantidad*precio;
-  const costo=stock.costo*cantidad;
+  // PEPS: consume lotes in order (first in, first out)
+  let costoPEPS=0;
+  let cantPendiente=cantidad;
+  if(stock.lotes && stock.lotes.length>0){
+    for(var li=0;li<stock.lotes.length && cantPendiente>0;li++){
+      var lote=stock.lotes[li];
+      if(lote.cantRestante<=0) continue;
+      var consumir=Math.min(lote.cantRestante, cantPendiente);
+      costoPEPS+=consumir*lote.costoUnit;
+      lote.cantRestante-=consumir;
+      cantPendiente-=consumir;
+    }
+    // Update costo to reflect current first available lote
+    var primerDisponible=stock.lotes.find(function(l){return l.cantRestante>0;});
+    stock.costo=primerDisponible?primerDisponible.costoUnit:stock.costo;
+  } else {
+    costoPEPS=stock.costo*cantidad;
+  }
+  const costo=costoPEPS;
   stock.cant-=cantidad;
   DB.ventas.push({fecha,cliente,producto,cantidad,precio,total,costo,pago,margen:total>0?((total-costo)/total*100).toFixed(1):'0'});
   DB.movStock.push({fecha,producto,tipo:'Salida',cantidad,ref:'Venta'});
@@ -1562,9 +1588,27 @@ function renderTopClientes(){
 ============================================================ */
 function renderCompras(){
   document.getElementById('c-fecha').value=today();
+  // Populate product select with current stock
+  var sel=document.getElementById('c-producto');
+  var stockKeys=Object.keys(DB.stock);
+  sel.innerHTML='<option value="">— Seleccioná un producto —</option>'+
+    stockKeys.map(function(p){return '<option value="'+p+'">'+p+' (Stock: '+DB.stock[p].cant+')</option>';}).join('')+
+    '<option value="__nuevo__">➕ Agregar nuevo producto...</option>';
+  document.getElementById('c-nuevo-producto-row').style.display='none';
   renderTablaCompras();
   renderGastosCompraChart();
   renderTopProveedores();
+}
+
+function onCompraProductoChange(){
+  var sel=document.getElementById('c-producto');
+  var row=document.getElementById('c-nuevo-producto-row');
+  if(sel.value==='__nuevo__'){
+    row.style.display='block';
+    document.getElementById('c-producto-nuevo').focus();
+  } else {
+    row.style.display='none';
+  }
 }
 
 function calcCompra(){
@@ -1574,29 +1618,53 @@ function calcCompra(){
 }
 
 function guardarCompra(){
-  const fecha=document.getElementById('c-fecha').value;
-  const proveedor=document.getElementById('c-proveedor').value.trim()||'Sin especificar';
-  const producto=document.getElementById('c-producto').value.trim();
-  const cantidad=parseFloat(document.getElementById('c-cantidad').value)||0;
-  const precio=parseFloat(document.getElementById('c-precio').value)||0;
-  const pago=document.getElementById('c-pago').value;
-  if(!fecha||!producto||cantidad<=0||precio<=0){toast('Completá todos los campos','error');return}
-  const total=cantidad*precio;
-  if(!DB.stock[producto])DB.stock[producto]={cant:0,costo:precio,min:5};
-  DB.stock[producto].cant+=cantidad;
-  DB.stock[producto].costo=precio;
-  DB.compras.push({fecha,proveedor,producto,cantidad,precio,total,pago});
-  DB.movStock.push({fecha,producto,tipo:'Entrada',cantidad,ref:'Compra'});
-  const ctaOrigen=pago==='Efectivo'?'Caja':pago==='Cuenta corriente'?'Proveedores Varios':'Banco';
-  generarAsiento(fecha,`Compra: ${cantidad}x ${producto} a ${proveedor}`,[{cuenta:'Mercaderías',tipo:'D',monto:total},{cuenta:ctaOrigen,tipo:'H',monto:total}],'compra');
+  var fecha=document.getElementById('c-fecha').value;
+  var proveedor=document.getElementById('c-proveedor').value.trim()||'Sin especificar';
+  var selVal=document.getElementById('c-producto').value;
+  var productoNombre='';
+  if(selVal==='__nuevo__'){
+    productoNombre=document.getElementById('c-producto-nuevo').value.trim();
+  } else {
+    productoNombre=selVal;
+  }
+  var cantidad=parseFloat(document.getElementById('c-cantidad').value)||0;
+  var precio=parseFloat(document.getElementById('c-precio').value)||0;
+  var pago=document.getElementById('c-pago').value;
+  if(!fecha||!productoNombre||cantidad<=0||precio<=0){toast('Completá todos los campos','error');return}
+  var total=cantidad*precio;
+
+  // PEPS: add new lote (batch) to stock
+  if(!DB.stock[productoNombre]){
+    DB.stock[productoNombre]={cant:0,costo:precio,min:5,lotes:[]};
+  }
+  if(!DB.stock[productoNombre].lotes) DB.stock[productoNombre].lotes=[];
+  DB.stock[productoNombre].lotes.push({
+    fecha:fecha,
+    cantidad:cantidad,
+    costoUnit:precio,
+    cantRestante:cantidad,
+    proveedor:proveedor
+  });
+  DB.stock[productoNombre].cant+=cantidad;
+  // Costo PEPS: el primer lote con unidades disponibles
+  var primerLote=DB.stock[productoNombre].lotes.find(function(l){return l.cantRestante>0;});
+  DB.stock[productoNombre].costo=primerLote?primerLote.costoUnit:precio;
+
+  DB.compras.push({fecha:fecha,proveedor:proveedor,producto:productoNombre,cantidad:cantidad,precio:precio,total:total,pago:pago});
+  DB.movStock.push({fecha:fecha,producto:productoNombre,tipo:'Entrada',cantidad:cantidad,ref:'Compra'});
+  var ctaOrigen=pago==='Efectivo'?'Caja':pago==='Cuenta corriente'?'Proveedores Varios':'Banco';
+  generarAsiento(fecha,'Compra: '+cantidad+'x '+productoNombre+' a '+proveedor,[{cuenta:'Mercaderías',tipo:'D',monto:total},{cuenta:ctaOrigen,tipo:'H',monto:total}],'compra');
   saveDB();
   // Reset
   document.getElementById('c-proveedor').value='';
   document.getElementById('c-producto').value='';
+  document.getElementById('c-nuevo-producto-row').style.display='none';
+  document.getElementById('c-producto-nuevo').value='';
   document.getElementById('c-cantidad').value=1;
   document.getElementById('c-precio').value='';
   calcCompra();
   // Update all
+  renderCompras();
   renderTablaCompras();
   renderGastosCompraChart();
   renderTopProveedores();
@@ -1605,9 +1673,9 @@ function guardarCompra(){
   renderProgress();
   checkStockAlerts();
   // Refresh producto select in ventas
-  const sel=document.getElementById('v-producto');
-  if(sel)sel.innerHTML=Object.keys(DB.stock).map(p=>`<option>${p}</option>`).join('');
-  toast('✓ Compra registrada. Stock actualizado. Asiento generado.','success');
+  var sel=document.getElementById('v-producto');
+  if(sel)sel.innerHTML=Object.keys(DB.stock).map(function(p){return '<option>'+p+'</option>';}).join('');
+  toast('✓ Compra registrada (PEPS). Stock actualizado. Asiento generado.','success');
 }
 
 function renderTablaCompras(filter=''){
@@ -1678,18 +1746,20 @@ function renderStock(){
       var em=info.cant===0?'🔴':info.cant<=info.min?'🟡':'🟢';
       var borderStyle=info.cant===0?'border-left:4px solid var(--red)':info.cant<=info.min?'border-left:4px solid var(--amber)':'border-left:4px solid var(--green)';
       var nombreEsc=nombre.replace(/'/g,"\\'");
-      return '<div class="stock-card" style="'+borderStyle+'">'+
+      return '<div class="stock-card" style="'+borderStyle+';cursor:pointer" onclick="verHistorialProducto(\''+nombreEsc+'\')">'+
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">'+
           '<div style="font-size:13px;font-weight:700;color:var(--text);flex:1;line-height:1.3">'+nombre+'</div>'+
-          '<button onclick="eliminarProductoStock(\''+nombreEsc+'\')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;padding:0 0 0 8px;flex-shrink:0" title="Eliminar producto">✕</button>'+
+          '<button onclick="event.stopPropagation();eliminarProductoStock(\''+nombreEsc+'\')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;padding:0 0 0 8px;flex-shrink:0" title="Eliminar producto">✕</button>'+
         '</div>'+
         '<div class="stock-level '+cls+'" style="font-size:20px">'+info.cant+' u. <span style="font-size:16px">'+em+'</span></div>'+
-        '<div style="font-size:11px;color:var(--muted);margin:5px 0 2px">Costo: '+fmoney(info.costo)+'</div>'+
+        '<div style="font-size:11px;color:var(--muted);margin:5px 0 2px">Costo PEPS: '+fmoney(info.costo)+'</div>'+
+        '<div style="font-size:10px;color:var(--blue);margin-bottom:4px;font-weight:600">📋 Ver historial de lotes</div>'+
         // Editable min inline
         '<div style="display:flex;align-items:center;gap:6px;margin-top:6px">'+
           '<span style="font-size:11px;color:var(--muted);white-space:nowrap">Mín:</span>'+
           '<input type="number" min="0" value="'+info.min+'" '+
             'style="width:58px;padding:3px 6px;font-size:12px;border:1px solid var(--border);border-radius:6px;font-family:inherit;color:var(--text);background:var(--bg)" '+
+            'onclick="event.stopPropagation()" '+
             'onchange="actualizarMinStock(\''+nombreEsc+'\',this.value)" '+
             'title="Editá el stock mínimo y presioná Enter o salí del campo">'+
           '<span style="font-size:10px;color:var(--amber);font-weight:600">⚠️ alerta</span>'+
@@ -1746,13 +1816,16 @@ function guardarProductoStock(){
 
   var esNuevo=!DB.stock[nombre];
   if(esNuevo){
-    DB.stock[nombre]={cant:cant,costo:costo||0,min:min};
+    DB.stock[nombre]={cant:cant,costo:costo||0,min:min,lotes:[]};
+    if(cant>0) DB.stock[nombre].lotes.push({fecha:today(),cantidad:cant,costoUnit:costo||0,cantRestante:cant,proveedor:'Alta manual'});
     DB.movStock.push({fecha:today(),producto:nombre,tipo:'Entrada',cantidad:cant,ref:'Alta de producto'});
     toast('Producto "'+nombre+'" creado con '+cant+' unidades','success');
   } else {
     // Update — only add cantidad if >0 (as adjustment), always update costo y min
+    if(!DB.stock[nombre].lotes) DB.stock[nombre].lotes=[];
     if(cant>0){
       DB.stock[nombre].cant+=cant;
+      DB.stock[nombre].lotes.push({fecha:today(),cantidad:cant,costoUnit:costo||DB.stock[nombre].costo,cantRestante:cant,proveedor:'Ajuste manual'});
       DB.movStock.push({fecha:today(),producto:nombre,tipo:'Entrada',cantidad:cant,ref:'Ajuste de stock'});
     }
     if(costo>0) DB.stock[nombre].costo=costo;
@@ -2730,6 +2803,140 @@ function exportPDF(tipo){
   }
   closeModal('export-options');
 }
+
+/* ============================================================
+   HISTORIAL PEPS POR PRODUCTO
+============================================================ */
+function verHistorialProducto(nombre){
+  var info=DB.stock[nombre];
+  if(!info){toast('Producto no encontrado','error');return;}
+  var lotes=info.lotes||[];
+  var movs=DB.movStock.filter(function(m){return m.producto===nombre;});
+  var valorPEPS=lotes.reduce(function(acc,l){return acc+(l.cantRestante*(l.costoUnit||0));},0);
+  var estado=info.cant===0
+    ?'<span style="color:var(--red);font-weight:700">🔴 SIN STOCK</span>'
+    :info.cant<=info.min
+      ?'<span style="color:var(--amber);font-weight:700">🟡 BAJO STOCK</span>'
+      :'<span style="color:var(--green);font-weight:700">🟢 OK</span>';
+
+  var lotesHtml=lotes.length===0
+    ?'<tr><td colspan="5" style="padding:14px;text-align:center;color:var(--muted)">Sin lotes registrados aún</td></tr>'
+    :lotes.slice().reverse().map(function(l){
+      var agotado=l.cantRestante===0;
+      return '<tr style="background:'+(agotado?'#f8fafc':'')+'">'+
+        '<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">'+formatFecha(l.fecha)+'</td>'+
+        '<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">'+( l.proveedor||'—')+'</td>'+
+        '<td style="padding:7px 10px;text-align:right;color:'+(agotado?'#94a3b8':'')+'">'+l.cantidad+'</td>'+
+        '<td style="padding:7px 10px;text-align:right;font-weight:700;color:'+(agotado?'#94a3b8':'var(--blue)')+'">'+fmoney(l.costoUnit)+'</td>'+
+        '<td style="padding:7px 10px;text-align:right">'+
+          (agotado
+            ?'<span style="font-size:11px;background:#f1f5f9;padding:2px 8px;border-radius:20px;color:#94a3b8">Agotado</span>'
+            :'<span style="font-size:12px;font-weight:700;color:var(--green)">'+l.cantRestante+' u.</span>')+
+        '</td>'+
+      '</tr>';
+    }).join('');
+
+  var movsHtml=movs.length===0
+    ?'<tr><td colspan="4" style="padding:14px;text-align:center;color:var(--muted)">Sin movimientos</td></tr>'
+    :movs.slice().reverse().slice(0,12).map(function(m){
+      return '<tr>'+
+        '<td style="padding:6px 10px">'+formatFecha(m.fecha)+'</td>'+
+        '<td style="padding:6px 10px"><span class="tag '+(m.tipo==='Entrada'?'tag-green':'tag-red')+'">'+m.tipo+'</span></td>'+
+        '<td style="padding:6px 10px;font-weight:600;color:'+(m.tipo==='Entrada'?'var(--green)':'var(--red)')+'">'+
+          (m.tipo==='Entrada'?'+':'-')+m.cantidad+
+        '</td>'+
+        '<td style="padding:6px 10px;color:var(--muted)">'+m.ref+'</td>'+
+      '</tr>';
+    }).join('');
+
+  // Costos únicos de adquisición
+  var costosUnicos={};
+  lotes.forEach(function(l){
+    var k=fmoney(l.costoUnit);
+    if(!costosUnicos[k]) costosUnicos[k]={costo:l.costoUnit,lotes:0,unidades:0,disponibles:0};
+    costosUnicos[k].lotes++;
+    costosUnicos[k].unidades+=l.cantidad;
+    costosUnicos[k].disponibles+=l.cantRestante;
+  });
+  var costosHtml=Object.values(costosUnicos).sort(function(a,b){return a.costo-b.costo;}).map(function(c){
+    return '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">'+
+      '<div style="flex:1;font-size:13px;font-weight:600;color:var(--blue)">'+fmoney(c.costo)+' / u.</div>'+
+      '<div style="font-size:12px;color:var(--muted)">'+c.lotes+' lote'+(c.lotes>1?'s':'')+' · '+c.unidades+' u. compradas</div>'+
+      '<div style="font-size:12px;font-weight:700;color:'+(c.disponibles>0?'var(--green)':'#94a3b8')+'">'+
+        (c.disponibles>0?c.disponibles+' disponibles':'Agotado')+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  var html=
+    '<div style="margin-bottom:20px">'+
+      '<div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px">📦 '+nombre+'</div>'+
+      '<div style="font-size:13px;color:var(--muted)">Historial completo · Valuación: <strong style="color:var(--pink)">PEPS — Primero Entrado, Primero Salido</strong></div>'+
+    '</div>'+
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Stock actual</div>'+
+        '<div style="font-size:24px;font-weight:800">'+info.cant+'</div>'+
+        '<div style="margin-top:3px">'+estado+'</div>'+
+      '</div>'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Costo 1er lote (PEPS)</div>'+
+        '<div style="font-size:18px;font-weight:800;color:var(--blue)">'+fmoney(info.costo)+'</div>'+
+        '<div style="font-size:10px;color:var(--muted);margin-top:2px">próximo a usar</div>'+
+      '</div>'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Valor en stock</div>'+
+        '<div style="font-size:18px;font-weight:800;color:var(--green)">'+fmoney(valorPEPS)+'</div>'+
+        '<div style="font-size:10px;color:var(--muted);margin-top:2px">valuación PEPS</div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">💲 Costos de adquisición registrados</div>'+
+    '<div style="margin-bottom:18px">'+costosHtml+'</div>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)">🏷️ Lotes de compra (PEPS — orden de consumo)</div>'+
+    '<div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--blue-pale);padding:8px 12px;border-radius:var(--rs)">'+
+      '📌 Al registrar una venta, se descontarán primero las unidades del lote más antiguo con stock disponible.'+
+    '</div>'+
+    '<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">'+
+      '<thead><tr style="background:var(--bg)">'+
+        '<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha ingreso</th>'+
+        '<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Proveedor</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Cant.</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Costo unit.</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Disponible</th>'+
+      '</tr></thead>'+
+      '<tbody>'+lotesHtml+'</tbody>'+
+    '</table>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">📋 Últimos movimientos</div>'+
+    '<table style="width:100%;border-collapse:collapse;font-size:12px">'+
+      '<thead><tr style="background:var(--bg)">'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Tipo</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Cantidad</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Referencia</th>'+
+      '</tr></thead>'+
+      '<tbody>'+movsHtml+'</tbody>'+
+    '</table>';
+
+  document.getElementById('modal-historial-content').innerHTML=html;
+  var modal=document.getElementById('modal-historial-producto');
+  modal.style.display='flex';
+}
+
+function cerrarHistorialProducto(){
+  document.getElementById('modal-historial-producto').style.display='none';
+}
+
+document.addEventListener('click',function(e){
+  var modal=document.getElementById('modal-historial-producto');
+  if(modal && e.target===modal) cerrarHistorialProducto();
+});
 </script>
+<!-- MODAL: Historial de lotes PEPS -->
+<div id="modal-historial-producto" style="display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;padding:28px;width:640px;max-width:95vw;max-height:85vh;overflow-y:auto;position:relative">
+    <button onclick="cerrarHistorialProducto()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">✕</button>
+    <div id="modal-historial-content"></div>
+  </div>
+</div>
 </body>
 </html>

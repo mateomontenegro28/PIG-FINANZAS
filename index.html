@@ -1248,7 +1248,7 @@ async function sbGetUser(username){
 
 // Create user
 async function sbCreateUser(username,passHash,empresa,email){
-  return sbFetch('usuarios','POST',{username,pass_hash:passHash,empresa,email:email||null,activo:false});
+  return sbFetch('usuarios','POST',{username,pass_hash:passHash,empresa,email:email||null,activo:true,plan:'mensual',fecha_registro:new Date().toISOString()});
 }
 
 // Load DB data
@@ -1297,15 +1297,24 @@ async function doAuth(){
       var existing=await sbGetUser(user);
       if(existing){err.textContent='Ese usuario ya existe';btn.textContent='Crear cuenta';btn.disabled=false;return}
       await sbCreateUser(user,btoa(pass),empresa,email);
-      err.style.color='var(--green)';
-      err.textContent='✓ Cuenta creada. Esperá que el administrador la active para ingresar.';
+      // Auto-login: cargar el usuario recién creado e ingresar
+      var newUser=await sbGetUser(user);
+      if(newUser){
+        var newDB=defaultDB();
+        await sbSaveData(newUser.id,'db',newDB).catch(function(){});
+        sbUpdateLastSeen(newUser.id);
+        toast('✓ ¡Bienvenido '+user+'! Cuenta creada correctamente.','success');
+        doLogin(user,newUser,newDB);
+      } else {
+        err.style.color='var(--green)';
+        err.textContent='✓ Cuenta creada. Iniciá sesión con tus datos.';
+      }
       btn.textContent='Crear cuenta';btn.disabled=false;
       return;
     } else {
       var userData=await sbGetUser(user);
       if(!userData){err.textContent='Usuario no encontrado';btn.textContent='Iniciar sesión';btn.disabled=false;return}
       if(userData.pass_hash!==btoa(pass)){err.textContent='Contraseña incorrecta';btn.textContent='Iniciar sesión';btn.disabled=false;return}
-      if(!userData.activo){err.textContent='Tu cuenta está pendiente de activación por el administrador.';btn.textContent='Iniciar sesión';btn.disabled=false;return}
       // Check vencimiento
       if(userData.fecha_vencimiento&&new Date(userData.fecha_vencimiento)<new Date()){
         err.textContent='Tu suscripción venció el '+new Date(userData.fecha_vencimiento).toLocaleDateString('es-AR')+'. Contactá al administrador.';

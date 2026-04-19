@@ -1232,12 +1232,17 @@ let currentUser=null;
 var SB_URL='https://mdetupblkjrazlwuyloq.supabase.co';
 var SB_KEY='sb_publishable_NZG262odQvO7ZEOdoECwDQ_f7-BGiJw';
 
-async function sbFetch(path,method,body){
-  var opts={method:method||'GET',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}};
+async function sbFetch(path,method,body,extraHeaders){
+  var headers=Object.assign({'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY},extraHeaders||{});
+  var opts={method:method||'GET',headers:headers};
   if(body) opts.body=JSON.stringify(body);
   var r=await fetch(SB_URL+'/rest/v1/'+path,opts);
-  if(!r.ok){var e=await r.json().catch(function(){return {};});throw new Error(e.message||r.status);}
-  return r.status===204?null:r.json();
+  if(!r.ok){var e=await r.json().catch(function(){return{};});throw new Error(e.message||'Error '+r.status);}
+  // Manejar respuestas vacías de forma segura
+  if(r.status===204) return null;
+  var text=await r.text();
+  if(!text||!text.trim()) return null;
+  try{return JSON.parse(text);}catch(e){return null;}
 }
 
 // Get one user by username
@@ -1246,9 +1251,18 @@ async function sbGetUser(username){
   return rows&&rows.length?rows[0]:null;
 }
 
-// Create user
+// Create user — pide que Supabase devuelva la fila creada directamente
 async function sbCreateUser(username,passHash,empresa,email){
-  return sbFetch('usuarios','POST',{username,pass_hash:passHash,empresa,email:email||null,activo:true,plan:'mensual',fecha_registro:new Date().toISOString()});
+  var result=await sbFetch(
+    'usuarios',
+    'POST',
+    {username,pass_hash:passHash,empresa,email:email||null,activo:true,plan:'mensual',fecha_registro:new Date().toISOString()},
+    {'Prefer':'return=representation'}
+  );
+  // Si Supabase devolvió la fila creada, retornarla; si no, null
+  if(result&&Array.isArray(result)&&result.length) return result[0];
+  if(result&&result.id) return result;
+  return null;
 }
 
 // Load DB data
@@ -1259,7 +1273,7 @@ async function sbLoadData(userId,clave){
 
 // Save DB data (upsert)
 async function sbSaveData(userId,clave,valor){
-  return sbFetch('datos_empresa?on_conflict=usuario_id,clave','POST',{usuario_id:userId,clave,valor,updated_at:new Date().toISOString()});
+  return sbFetch('datos_empresa?on_conflict=usuario_id,clave','POST',{usuario_id:userId,clave,valor,updated_at:new Date().toISOString()},{'Prefer':'return=minimal'});
 }
 
 // Log last seen
@@ -1288,23 +1302,28 @@ async function doAuth(){
   var btn=document.getElementById('auth-btn');
   if(!user||!pass){err.textContent='Completá usuario y contraseña';return}
 
-  btn.textContent=authMode==='register'?'Creando cuenta…':'Conectando...';btn.disabled=true;
+  btn.textContent=authMode==='register'?'Creando cuenta…':'Conectando...';
+  btn.disabled=true;
   err.textContent='';
+  err.style.color='';
 
   try{
     if(authMode==='register'){
       var empresa=document.getElementById('inp-empresa').value.trim()||user+' Empresa';
+      // Verificar si ya existe
       var existing=await sbGetUser(user);
-      if(existing){err.textContent='Ese usuario ya existe';btn.textContent='Crear cuenta';btn.disabled=false;return}
-      await sbCreateUser(user,btoa(pass),empresa,email);
-      // Auto-login: buscar el usuario recién creado con reintentos por latencia de Supabase
-      var newUser=null;
-      for(var intento=0;intento<4;intento++){
-        if(intento>0) await new Promise(function(r){setTimeout(r,700);}); // esperar antes de reintentar
-        newUser=await sbGetUser(user).catch(function(){return null;});
-        if(newUser) break;
+      if(existing){err.textContent='Ese usuario ya existe';btn.textContent='Solicitar cuenta';btn.disabled=false;return}
+      // Crear usuario — sbCreateUser devuelve la fila creada directamente (Prefer: return=representation)
+      var newUser=await sbCreateUser(user,btoa(pass),empresa,email);
+      // Si Supabase no devolvió la fila (algunos configs), buscarla con reintentos
+      if(!newUser||!newUser.id){
+        for(var i=0;i<4;i++){
+          await new Promise(function(res){setTimeout(res,700);});
+          newUser=await sbGetUser(user).catch(function(){return null;});
+          if(newUser&&newUser.id) break;
+        }
       }
-      if(newUser){
+      if(newUser&&newUser.id){
         var newDB=defaultDB();
         await sbSaveData(newUser.id,'db',newDB).catch(function(){});
         sbUpdateLastSeen(newUser.id);
@@ -1313,8 +1332,8 @@ async function doAuth(){
       } else {
         err.style.color='var(--green)';
         err.textContent='✓ Cuenta creada. Iniciá sesión con tus datos.';
+        btn.textContent='Solicitar cuenta';btn.disabled=false;
       }
-      btn.textContent='Crear cuenta';btn.disabled=false;
       return;
     } else {
       var userData=await sbGetUser(user);
@@ -1333,7 +1352,7 @@ async function doAuth(){
     }
   }catch(e){
     err.textContent='Error de conexión: '+e.message;
-    btn.textContent=authMode==='register'?'Crear cuenta':'Iniciar sesión';
+    btn.textContent=authMode==='register'?'Solicitar cuenta':'Iniciar sesión';
     btn.disabled=false;
   }
 }

@@ -1401,18 +1401,21 @@ async function saveCurrentUser(){
 ============================================================ */
 let DB={};
 var currentUserData=null;
+
 function defaultDB(){
   return {
-    ventas:[],
-    compras:[],
-    gastos:[],
-    asientos:[],
-    movStock:[],
-    cuentasExtra:[],
-    currentMonth:new Date().getMonth(),
-    stock:{}
+    ventas:[],compras:[],gastos:[],asientos:[],movStock:[],cuentasExtra:[],currentMonth:new Date().getMonth(),
+    stock:{
+      'Mesa de madera':{cant:12,costo:4500,min:5,lotes:[{fecha:'2026-01-10',cantidad:12,costoUnit:4500,cantRestante:12}]},
+      'Silla tapizada':{cant:30,costo:1800,min:10,lotes:[{fecha:'2026-01-15',cantidad:30,costoUnit:1800,cantRestante:30}]},
+      'Escritorio':{cant:4,costo:8200,min:3,lotes:[{fecha:'2026-02-01',cantidad:4,costoUnit:8200,cantRestante:4}]},
+      'Estante pared':{cant:2,costo:2100,min:5,lotes:[{fecha:'2026-02-10',cantidad:2,costoUnit:2100,cantRestante:2}]},
+      'Sofa 3 cuerpos':{cant:8,costo:15000,min:3,lotes:[{fecha:'2026-02-20',cantidad:8,costoUnit:15000,cantRestante:8}]},
+      'Cama 2 plazas':{cant:6,costo:12000,min:3,lotes:[{fecha:'2026-03-01',cantidad:6,costoUnit:12000,cantRestante:6}]},
+    }
   };
 }
+
 var _saveTimer=null;
 function saveDB(){
   // Debounce: save 1.5s after last change
@@ -1425,8 +1428,8 @@ function saveDB(){
 ============================================================ */
 const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 // Demo data per month (in thousands)
-const DEMO_V=[0,0,0,0,0,0,0,0,0,0,0,0];
-const DEMO_C=[0,0,0,0,0,0,0,0,0,0,0,0];
+const DEMO_V=[142,158,195,213,178,224,198,245,267,231,289,312];
+const DEMO_C=[98,102,124,138,112,145,128,158,171,149,183,198];
 
 function fmoney(n){
   const v=Math.abs(parseFloat(n)||0);
@@ -1536,11 +1539,11 @@ function updateKPIs(m){
   const compras=(DEMO_C[m]*1000)+dc;
   const resultado=ventas-compras;
   const margen=ventas>0?((resultado/ventas)*100).toFixed(1):'0.0';
- const kpis=[
-    {label:'Ventas del mes',val:fmoney(ventas),delta:ventas>0?'↑ Con movimiento':'Sin ventas aún',up:ventas>0,icon:'💰',bg:'#fdf2f8'},
-    {label:'Compras del mes',val:fmoney(compras),delta:compras>0?'Con movimiento':'Sin compras aún',up:false,icon:'🛒',bg:'#eff6ff'},
+  const kpis=[
+    {label:'Ventas del mes',val:fmoney(ventas),delta:'↑ 8.3%',up:true,icon:'💰',bg:'#fdf2f8'},
+    {label:'Compras del mes',val:fmoney(compras),delta:'↑ 5.1%',up:false,icon:'🛒',bg:'#eff6ff'},
     {label:'Resultado bruto',val:fmoney(resultado),delta:resultado>=0?'↑ Positivo':'↓ Negativo',up:resultado>=0,icon:'📊',bg:'#ecfdf5'},
-    {label:'Margen bruto',val:margen+'%',delta:'Período seleccionado',up:parseFloat(margen)>0,icon:'📈',bg:'#fffbeb'},
+    {label:'Margen bruto',val:margen+'%',delta:'Período selec.',up:parseFloat(margen)>0,icon:'📈',bg:'#fffbeb'},
   ];
   const grid=document.getElementById('kpi-grid');
   grid.innerHTML='';
@@ -1595,69 +1598,38 @@ function updateBarChart(){buildBarChart()}
 
 function buildDonutChart(){
   destroyChart('donut');
-  const colors=['#1e40af','#3b82f6','#60a5fa','#93c5fd','#bfdbfe','#e84393','#10b981','#f59e0b'];
-
-  // Construir datos REALES desde gastos del usuario
-  const cats={};
-  (DB.gastos||[]).forEach(g=>{
-    cats[g.concepto]=(cats[g.concepto]||0)+g.importe;
-  });
-  // También sumar compras como categoría
-  const totalCompras=DB.compras.reduce((a,b)=>a+b.total,0);
-  if(totalCompras>0) cats['Compras']=(cats['Compras']||0)+totalCompras;
-
-  const labels=Object.keys(cats);
-  const data=Object.values(cats);
-
-  // Si no hay datos mostrar mensaje vacío
-  if(!labels.length){
-    destroyChart('donut');
-    const leg=document.getElementById('gastos-legend');
-    leg.innerHTML='<div style="text-align:center;color:var(--muted);padding:20px;font-size:13px">Sin datos aún. Registrá gastos o compras para ver la distribución.</div>';
-    const ctx=document.getElementById('chartGastos');
-    // Mostrar gráfico vacío
-    chartInstances.donut=new Chart(ctx,{
-      type:'doughnut',
-      data:{labels:['Sin datos'],datasets:[{data:[1],backgroundColor:['#e2e8f0'],borderWidth:0}]},
-      options:{responsive:true,cutout:'65%',plugins:{legend:{display:false},tooltip:{enabled:false}}}
-    });
-    return;
-  }
-
+  const donutData=[45,20,12,16,7];
+  const donutColors=['#1e40af','#3b82f6','#60a5fa','#93c5fd','#bfdbfe'];
+  const donutLabels=['Compra mercadería','Alquileres','Servicios','Sueldos','Otros'];
   chartInstances.donut=new Chart(document.getElementById('chartGastos'),{
     type:'doughnut',
-    data:{labels:labels,datasets:[{data:data,backgroundColor:colors.slice(0,labels.length),borderWidth:0,hoverOffset:8}]},
+    data:{labels:donutLabels,datasets:[{data:donutData,backgroundColor:donutColors,borderWidth:0,hoverOffset:8}]},
     options:{responsive:true,cutout:'65%',plugins:{legend:{display:false}}}
   });
-
-  const total=data.reduce((a,b)=>a+b,0);
   const leg=document.getElementById('gastos-legend');
-  leg.innerHTML=labels.map((l,i)=>`
-    <div class="legend-item">
-      <div class="legend-dot" style="background:${colors[i]}"></div>
-      <span style="flex:1">${l}</span>
-      <strong style="font-size:12px">${total>0?((data[i]/total)*100).toFixed(1):'0'}%</strong>
-    </div>`).join('');
+  leg.innerHTML=donutLabels.map((l,i)=>`<div class="legend-item"><div class="legend-dot" style="background:${donutColors[i]}"></div><span style="flex:1">${l}</span><strong style="font-size:12px">${donutData[i]}%</strong></div>`).join('');
 }
+
 /* ============================================================
+   TRANSACTIONS (dashboard)
+============================================================ */
 function renderTransactions(){
-  const user=[
-    ...DB.ventas.slice(-5).map(v=>({fecha:v.fecha,desc:'Venta: '+v.producto,tipo:'venta',monto:v.total})),
-    ...DB.compras.slice(-3).map(c=>({fecha:c.fecha,desc:'Compra: '+c.producto,tipo:'compra',monto:-c.total})),
-    ...(DB.gastos||[]).slice(-2).map(g=>({fecha:g.fecha,desc:'Gasto: '+g.concepto,tipo:'gasto',monto:-g.importe}))
+  const demo=[
+    {fecha:'2026-03-28',desc:'Venta: 2x Mesa de madera',tipo:'venta',monto:9000},
+    {fecha:'2026-03-27',desc:'Compra: 20x Silla tapizada',tipo:'compra',monto:-36000},
+    {fecha:'2026-03-26',desc:'Venta: 1x Sofá 3 cuerpos',tipo:'venta',monto:28000},
+    {fecha:'2026-03-25',desc:'Gasto: Servicio eléctrico',tipo:'gasto',monto:-3200},
   ];
-  const all=user.sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,8);
-  document.getElementById('tabla-tx').innerHTML=all.length===0
-    ?`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">
-        <div style="font-size:28px;margin-bottom:8px">📋</div>
-        <div style="font-weight:600;margin-bottom:4px">Sin transacciones aún</div>
-        <div style="font-size:12px">Registrá tu primera venta, compra o gasto para verla aquí</div>
-      </td></tr>`
-    :all.map(t=>`<tr>
-      <td>${formatFecha(t.fecha)}</td><td>${t.desc}</td>
-      <td><span class="tag ${t.tipo==='venta'?'tag-green':t.tipo==='compra'?'tag-blue':'tag-amber'}">${t.tipo}</span></td>
-      <td style="font-weight:700;color:${t.monto>=0?'var(--green)':'var(--red)'}">${t.monto>=0?'+':''}${fmoney(t.monto)}</td>
-    </tr>`).join('');
+  const user=[
+    ...DB.ventas.slice(-4).map(v=>({fecha:v.fecha,desc:'Venta: '+v.producto,tipo:'venta',monto:v.total})),
+    ...DB.compras.slice(-2).map(c=>({fecha:c.fecha,desc:'Compra: '+c.producto,tipo:'compra',monto:-c.total}))
+  ];
+  const all=[...user,...demo].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,8);
+  document.getElementById('tabla-tx').innerHTML=all.map(t=>`<tr>
+    <td>${formatFecha(t.fecha)}</td><td>${t.desc}</td>
+    <td><span class="tag ${t.tipo==='venta'?'tag-green':t.tipo==='compra'?'tag-blue':'tag-amber'}">${t.tipo}</span></td>
+    <td style="font-weight:700;color:${t.monto>=0?'var(--green)':'var(--red)'}">${t.monto>=0?'+':''}${fmoney(t.monto)}</td>
+  </tr>`).join('');
 }
 
 function renderProgress(){
@@ -1761,11 +1733,17 @@ function guardarVenta(){
   toast('✓ Venta registrada. Asiento contable generado.','success');
 }
 
-function renderTopVentasChart(){
-  destroyChart('topVentas');
-  const prod={};
-  DB.ventas.forEach(v=>prod[v.producto]=(prod[v.producto]||0)+v.cantidad);
-  const sorted=Object.entries(prod).sort((a,b)=>b[1]-a[1]).slice(0,6);
+function renderTablaVentas(filter=''){
+  const all=DB.ventas.filter(v=>!filter||v.cliente.toLowerCase().includes(filter.toLowerCase())||v.producto.toLowerCase().includes(filter.toLowerCase()));
+  document.getElementById('tabla-ventas').innerHTML=all.length===0
+    ?'<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:24px">Sin ventas registradas todavía</td></tr>'
+    :all.slice().reverse().map(v=>`<tr>
+      <td>${formatFecha(v.fecha)}</td><td>${v.cliente}</td><td>${v.producto}</td>
+      <td>${v.cantidad}</td><td>${fmoney(v.precio)}</td><td style="font-weight:700">${fmoney(v.total)}</td>
+      <td><span class="tag tag-blue">${v.pago}</span></td>
+      <td style="color:${parseFloat(v.margen)>20?'var(--green)':'var(--amber)'};font-weight:600">${v.margen}%</td>
+    </tr>`).join('');
+}
 function filtrarVentas(v){renderTablaVentas(v)}
 
 function renderTopVentasChart(){
@@ -1786,18 +1764,26 @@ function renderPagosVentaChart(){
   destroyChart('pagosVenta');
   const p={};
   DB.ventas.forEach(v=>p[v.pago]=(p[v.pago]||0)+1);
-  const full={...p};
+  const full={Efectivo:12,Transferencia:8,Tarjeta:5,Cheque:3,...p};
+  chartInstances.pagosVenta=new Chart(document.getElementById('chartPagosVenta'),{
+    type:'doughnut',
+    data:{labels:Object.keys(full),datasets:[{data:Object.values(full),backgroundColor:['#1e40af','#3b82f6','#e84393','#10b981'],borderWidth:0}]},
+    options:{responsive:true,cutout:'60%',plugins:{legend:{position:'bottom'}}}
+  });
+}
 
 function renderTopClientes(){
   const c={};
   DB.ventas.forEach(v=>c[v.cliente]=(c[v.cliente]||0)+v.total);
-  const all=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  if(!all.length){
-    document.getElementById('top-clientes').innerHTML=
-      '<div style="text-align:center;color:var(--muted);padding:24px;font-size:13px">Sin clientes registrados aún</div>';
-    return;
-  }
+  const demo=[['Muebles Del Norte',245000],['Decoraciones SA',189000],['Hogar Express',134500],['El Rincón Deco',98000]];
+  const all=[...demo,...Object.entries(c)].sort((a,b)=>b[1]-a[1]).slice(0,5);
   document.getElementById('top-clientes').innerHTML=all.map((cl,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${i+1}</div>
+      <div style="flex:1;font-size:13px">${cl[0]}</div>
+      <div style="font-weight:700;font-size:13px;color:var(--green)">${fmoney(cl[1])}</div>
+    </div>`).join('');
+}
 
 /* ============================================================
    COMPRAS
@@ -1921,12 +1907,15 @@ function renderGastosCompraChart(){
 function renderTopProveedores(){
   const p={};
   DB.compras.forEach(c=>p[c.proveedor]=(p[c.proveedor]||0)+c.total);
-  const all=Object.entries(p).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  if(!all.length){
-    document.getElementById('top-proveedores').innerHTML=
-      '<div style="text-align:center;color:var(--muted);padding:16px;font-size:13px">Sin proveedores registrados aún</div>';
-    return;
-  }
+  const demo=[['TextilSur SA',180000],['InsumosPro',124000],['DistribuidoraNorte',89000]];
+  const all=[...demo,...Object.entries(p)].sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('top-proveedores').innerHTML=all.map((pr,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
+      <div style="width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">${i+1}</div>
+      <div style="flex:1;font-size:12px">${pr[0]}</div>
+      <div style="font-weight:700;font-size:12px;color:var(--red)">${fmoney(pr[1])}</div>
+    </div>`).join('');
+}
 
 /* ============================================================
    STOCK
@@ -1999,17 +1988,19 @@ function renderStock(){
 
   // Charts
   destroyChart('stockVentas');destroyChart('stockPagos');
-   var vp={};
+  var vp={};
   DB.ventas.forEach(function(v){vp[v.producto]=(vp[v.producto]||0)+v.cantidad;});
+  var demoV={'Mesa de madera':15,'Silla tapizada':42,'Sofa 3 cuerpos':8,'Escritorio':12};
+  Object.entries(demoV).forEach(function(e){vp[e[0]]=(vp[e[0]]||0)+e[1];});
   var entries2=Object.entries(vp).sort(function(a,b){return b[1]-a[1];}).slice(0,6);
   chartInstances.stockVentas=new Chart(document.getElementById('chartStockVentas'),{
     type:'bar',
     data:{labels:entries2.map(function(e){return e[0];}),datasets:[{data:entries2.map(function(e){return e[1];}),backgroundColor:'rgba(16,185,129,0.8)',borderRadius:6,borderSkipped:false}]},
     options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}}}
   });
-    var pp={};
+  var pp={};
   [...DB.ventas,...DB.compras].forEach(function(op){pp[op.pago]=(pp[op.pago]||0)+1;});
-  var pFull=Object.keys(pp).length>0?pp:{};
+  var pFull=Object.assign({Efectivo:18,Transferencia:14,Tarjeta:7,Cheque:4,'Cuenta corriente':6},pp);
   chartInstances.stockPagos=new Chart(document.getElementById('chartStockPagos'),{
     type:'doughnut',
     data:{labels:Object.keys(pFull),datasets:[{data:Object.values(pFull),backgroundColor:['#e84393','#3b82f6','#10b981','#f59e0b','#8b5cf6'],borderWidth:0}]},
@@ -3149,82 +3140,5 @@ document.addEventListener('click',function(e){
     <div id="modal-historial-content"></div>
   </div>
 </div>
-<script>
-window.addEventListener('load', () => {
-  // 1. Esperamos 3.5 segundos (tiempo suficiente para la caída de la moneda y el título)
-  setTimeout(() => {
-    const intro = document.getElementById('intro-screen');
-    const login = document.getElementById('login-screen');
-
-    // 2. Aplicamos la animación de desvanecimiento al logo
-    if (intro) {
-      intro.classList.add('fade-out');
-    }
-
-    // 3. Después de que se desvanece (0.8s), mostramos el login
-    setTimeout(() => {
-      if (intro) intro.style.display = 'none';
-      if (login) login.classList.add('active');
-    }, 800); 
-  }, 3500); 
-});
-</script>
-   <script>
-  // ESTO ARREGLA EL LOGO CONGELADO
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro-screen');
-      const login = document.getElementById('login-screen');
-      if (intro) intro.classList.add('fade-out');
-      
-      setTimeout(() => {
-        if (intro) intro.style.display = 'none';
-        if (login) login.classList.add('active');
-      }, 800); 
-    }, 3500);
-  });
-
-  // ESTO ACTIVA LOS BOTONES DE LOGIN Y REGISTRO
-  let isRegisterMode = false;
-
-  function toggleAuthMode() {
-    isRegisterMode = !isRegisterMode;
-    const authTitle = document.getElementById('auth-title');
-    const authBtn = document.getElementById('auth-btn');
-    const toggleText = document.getElementById('toggle-text');
-    const fieldEmpresa = document.getElementById('field-empresa');
-    const fieldEmail = document.getElementById('field-email');
-
-    if (isRegisterMode) {
-      authTitle.innerText = "Crear cuenta empresarial";
-      authBtn.innerText = "Registrarse";
-      toggleText.innerHTML = "¿Ya tenés cuenta? <span>Iniciar sesión</span>";
-      fieldEmpresa.style.display = "block";
-      fieldEmail.style.display = "block";
-    } else {
-      authTitle.innerText = "Bienvenido de nuevo";
-      authBtn.innerText = "Iniciar sesión";
-      toggleText.innerHTML = "¿No tenés cuenta? <span>Registrarse</span>";
-      fieldEmpresa.style.display = "none";
-      fieldEmail.style.display = "none";
-    }
-  }
-
-  function doAuth() {
-    const user = document.getElementById('inp-user').value.trim();
-    const pass = document.getElementById('inp-pass').value.trim();
-    
-    if (user && pass) {
-      // Ocultar login y mostrar la app principal
-      document.getElementById('login-screen').style.display = 'none';
-      const app = document.getElementById('app');
-      app.style.display = 'flex';
-      app.classList.add('active');
-    } else {
-      document.getElementById('auth-error').innerText = "Completa todos los campos";
-    }
-  }
-</script>
-</body>
 </body>
 </html>

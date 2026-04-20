@@ -1405,14 +1405,7 @@ var currentUserData=null;
 function defaultDB(){
   return {
     ventas:[],compras:[],gastos:[],asientos:[],movStock:[],cuentasExtra:[],currentMonth:new Date().getMonth(),
-    stock:{
-      'Mesa de madera':{cant:12,costo:4500,min:5,lotes:[{fecha:'2026-01-10',cantidad:12,costoUnit:4500,cantRestante:12}]},
-      'Silla tapizada':{cant:30,costo:1800,min:10,lotes:[{fecha:'2026-01-15',cantidad:30,costoUnit:1800,cantRestante:30}]},
-      'Escritorio':{cant:4,costo:8200,min:3,lotes:[{fecha:'2026-02-01',cantidad:4,costoUnit:8200,cantRestante:4}]},
-      'Estante pared':{cant:2,costo:2100,min:5,lotes:[{fecha:'2026-02-10',cantidad:2,costoUnit:2100,cantRestante:2}]},
-      'Sofa 3 cuerpos':{cant:8,costo:15000,min:3,lotes:[{fecha:'2026-02-20',cantidad:8,costoUnit:15000,cantRestante:8}]},
-      'Cama 2 plazas':{cant:6,costo:12000,min:3,lotes:[{fecha:'2026-03-01',cantidad:6,costoUnit:12000,cantRestante:6}]},
-    }
+    stock:{}
   };
 }
 
@@ -1535,8 +1528,8 @@ function buildMonthPills(){
 function updateKPIs(m){
   const dv=DB.ventas.filter(v=>new Date(v.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0);
   const dc=DB.compras.filter(c=>new Date(c.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0);
-  const ventas=(DEMO_V[m]*1000)+dv;
-  const compras=(DEMO_C[m]*1000)+dc;
+  const ventas=dv;
+  const compras=dc;
   const resultado=ventas-compras;
   const margen=ventas>0?((resultado/ventas)*100).toFixed(1):'0.0';
   const kpis=[
@@ -1581,13 +1574,15 @@ function initCharts(){
 function buildBarChart(){
   destroyChart('bar');
   const m=DB.currentMonth;
+  const ventasData=MESES.map((_,i)=>DB.ventas.filter(x=>new Date(x.fecha).getMonth()===i).reduce((a,b)=>a+b.total/1000,0));
+  const comprasData=MESES.map((_,i)=>DB.compras.filter(x=>new Date(x.fecha).getMonth()===i).reduce((a,b)=>a+b.total/1000,0));
   chartInstances.bar=new Chart(document.getElementById('chartVentas'),{
     type:'bar',
     data:{
       labels:MESES,
       datasets:[
-        {label:'Ventas',data:DEMO_V.map((v,i)=>v+(i===m?DB.ventas.filter(x=>new Date(x.fecha).getMonth()===i).reduce((a,b)=>a+b.total/1000,0):0)),backgroundColor:'rgba(232,67,147,0.82)',borderRadius:5,borderSkipped:false},
-        {label:'Compras',data:DEMO_C.map((v,i)=>v+(i===m?DB.compras.filter(x=>new Date(x.fecha).getMonth()===i).reduce((a,b)=>a+b.total/1000,0):0)),backgroundColor:'rgba(59,130,246,0.65)',borderRadius:5,borderSkipped:false}
+        {label:'Ventas',data:ventasData,backgroundColor:'rgba(232,67,147,0.82)',borderRadius:5,borderSkipped:false},
+        {label:'Compras',data:comprasData,backgroundColor:'rgba(59,130,246,0.65)',borderRadius:5,borderSkipped:false}
       ]
     },
     options:{responsive:true,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'k'}}}}
@@ -1614,17 +1609,15 @@ function buildDonutChart(){
    TRANSACTIONS (dashboard)
 ============================================================ */
 function renderTransactions(){
-  const demo=[
-    {fecha:'2026-03-28',desc:'Venta: 2x Mesa de madera',tipo:'venta',monto:9000},
-    {fecha:'2026-03-27',desc:'Compra: 20x Silla tapizada',tipo:'compra',monto:-36000},
-    {fecha:'2026-03-26',desc:'Venta: 1x Sofá 3 cuerpos',tipo:'venta',monto:28000},
-    {fecha:'2026-03-25',desc:'Gasto: Servicio eléctrico',tipo:'gasto',monto:-3200},
-  ];
-  const user=[
+  const all=[
     ...DB.ventas.slice(-4).map(v=>({fecha:v.fecha,desc:'Venta: '+v.producto,tipo:'venta',monto:v.total})),
-    ...DB.compras.slice(-2).map(c=>({fecha:c.fecha,desc:'Compra: '+c.producto,tipo:'compra',monto:-c.total}))
-  ];
-  const all=[...user,...demo].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,8);
+    ...DB.compras.slice(-2).map(c=>({fecha:c.fecha,desc:'Compra: '+c.producto,tipo:'compra',monto:-c.total})),
+    ...DB.gastos.slice(-2).map(g=>({fecha:g.fecha,desc:'Gasto: '+g.concepto,tipo:'gasto',monto:-g.importe}))
+  ].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,8);
+  if(all.length===0){
+    document.getElementById('tabla-tx').innerHTML='<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted);font-size:13px">Sin movimientos registrados aún</td></tr>';
+    return;
+  }
   document.getElementById('tabla-tx').innerHTML=all.map(t=>`<tr>
     <td>${formatFecha(t.fecha)}</td><td>${t.desc}</td>
     <td><span class="tag ${t.tipo==='venta'?'tag-green':t.tipo==='compra'?'tag-blue':'tag-amber'}">${t.tipo}</span></td>
@@ -1634,14 +1627,18 @@ function renderTransactions(){
 
 function renderProgress(){
   const m=DB.currentMonth;
-  const v=DB.ventas.filter(x=>new Date(x.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0)+(DEMO_V[m]*1000);
-  const c=DB.compras.filter(x=>new Date(x.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0)+(DEMO_C[m]*1000);
-  const res=Math.max(0,Math.round((v-c)/v*100));
+  const v=DB.ventas.filter(x=>new Date(x.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0);
+  const c=DB.compras.filter(x=>new Date(x.fecha).getMonth()===m).reduce((a,b)=>a+b.total,0);
+  const res=v>0?Math.max(0,Math.round((v-c)/v*100)):0;
+  const totalStock=Object.keys(DB.stock).length;
+  const stockOK=totalStock>0?Math.round(Object.values(DB.stock).filter(s=>s.cant>s.min).length/totalStock*100):0;
+  const maxV=Math.max(v,1);
+  const maxC=Math.max(c,1);
   const cats=[
-    {name:'Ventas',val:Math.min(100,Math.round(v/3500)),color:'var(--pink)'},
-    {name:'Compras',val:Math.min(100,Math.round(c/2500)),color:'var(--blue)'},
+    {name:'Ventas',val:Math.min(100,Math.round(v/Math.max(v,1)*100)),color:'var(--pink)'},
+    {name:'Compras',val:Math.min(100,Math.round(c/Math.max(v||c,1)*100)),color:'var(--blue)'},
     {name:'Resultado',val:res,color:'var(--green)'},
-    {name:'Stock OK',val:Math.round(Object.values(DB.stock).filter(s=>s.cant>s.min).length/Object.keys(DB.stock).length*100)||70,color:'var(--amber)'},
+    {name:'Stock OK',val:stockOK,color:'var(--amber)'},
   ];
   document.getElementById('progress-cats').innerHTML=cats.map(c=>`
     <div class="progress-row">

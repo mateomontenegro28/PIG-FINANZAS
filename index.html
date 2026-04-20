@@ -3169,5 +3169,62 @@ window.addEventListener('load', () => {
   }, 3500); 
 });
 </script>
+   <script>
+  // ESTO ARREGLA EL LOGO CONGELADO
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const intro = document.getElementById('intro-screen');
+      const login = document.getElementById('login-screen');
+      if (intro) intro.classList.add('fade-out');
+      
+      setTimeout(() => {
+        if (intro) intro.style.display = 'none';
+        if (login) login.classList.add('active');
+      }, 800); 
+    }, 3500);
+  });
+
+  // ESTO ACTIVA LOS BOTONES DE LOGIN Y REGISTRO
+  let isRegisterMode = false;
+
+  function toggleAuthMode() {
+    isRegisterMode = !isRegisterMode;
+    const authTitle = document.getElementById('auth-title');
+    const authBtn = document.getElementById('auth-btn');
+    const toggleText = document.getElementById('toggle-text');
+    const fieldEmpresa = document.getElementById('field-empresa');
+    const fieldEmail = document.getElementById('field-email');
+
+    if (isRegisterMode) {
+      authTitle.innerText = "Crear cuenta empresarial";
+      authBtn.innerText = "Registrarse";
+      toggleText.innerHTML = "¿Ya tenés cuenta? <span>Iniciar sesión</span>";
+      fieldEmpresa.style.display = "block";
+      fieldEmail.style.display = "block";
+    } else {
+      authTitle.innerText = "Bienvenido de nuevo";
+      authBtn.innerText = "Iniciar sesión";
+      toggleText.innerHTML = "¿No tenés cuenta? <span>Registrarse</span>";
+      fieldEmpresa.style.display = "none";
+      fieldEmail.style.display = "none";
+    }
+  }
+
+  function doAuth() {
+    const user = document.getElementById('inp-user').value.trim();
+    const pass = document.getElementById('inp-pass').value.trim();
+    
+    if (user && pass) {
+      // Ocultar login y mostrar la app principal
+      document.getElementById('login-screen').style.display = 'none';
+      const app = document.getElementById('app');
+      app.style.display = 'flex';
+      app.classList.add('active');
+    } else {
+      document.getElementById('auth-error').innerText = "Completa todos los campos";
+    }
+  }
+</script>
+</body>
 </body>
 </html>

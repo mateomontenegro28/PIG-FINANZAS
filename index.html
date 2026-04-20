@@ -3149,5 +3149,25 @@ document.addEventListener('click',function(e){
     <div id="modal-historial-content"></div>
   </div>
 </div>
+<script>
+window.addEventListener('load', () => {
+  // 1. Esperamos 3.5 segundos (tiempo suficiente para la caída de la moneda y el título)
+  setTimeout(() => {
+    const intro = document.getElementById('intro-screen');
+    const login = document.getElementById('login-screen');
+
+    // 2. Aplicamos la animación de desvanecimiento al logo
+    if (intro) {
+      intro.classList.add('fade-out');
+    }
+
+    // 3. Después de que se desvanece (0.8s), mostramos el login
+    setTimeout(() => {
+      if (intro) intro.style.display = 'none';
+      if (login) login.classList.add('active');
+    }, 800); 
+  }, 3500); 
+});
+</script>
 </body>
 </html>

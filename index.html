@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -24,13 +23,13 @@
 html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
 
 /* ============================================================
-INTRO SCREEN
+   INTRO SCREEN
 ============================================================ */
 #intro-screen{
-position:fixed;inset:0;z-index:9999;
-background:linear-gradient(135deg,#0a1628 0%,#1a0a2e 50%,#0a1628 100%);
-display:flex;flex-direction:column;align-items:center;justify-content:center;
-overflow:hidden;
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0a1628 0%,#1a0a2e 50%,#0a1628 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
 }
 #intro-screen.fade-out{animation:introFadeOut 0.8s ease forwards}
 
@@ -40,14 +39,14 @@ overflow:hidden;
 /* Coin track */
 #coin-track{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:60%;display:flex;justify-content:center}
 #coin{
-width:56px;height:56px;border-radius:50%;
-background:radial-gradient(circle at 35% 35%,#ffe066,#f5a623,#c87000);
-border:3px solid #f5a623;
-display:flex;align-items:center;justify-content:center;
-font-size:22px;font-weight:800;color:#7a4000;
-box-shadow:0 4px 20px rgba(245,166,35,0.6),inset 0 2px 4px rgba(255,255,255,0.4);
-position:relative;top:-70px;
-animation:coinFall 1.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s forwards;
+  width:56px;height:56px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ffe066,#f5a623,#c87000);
+  border:3px solid #f5a623;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:800;color:#7a4000;
+  box-shadow:0 4px 20px rgba(245,166,35,0.6),inset 0 2px 4px rgba(255,255,255,0.4);
+  position:relative;top:-70px;
+  animation:coinFall 1.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s forwards;
 }
 
 /* Piggy */
@@ -60,41 +59,41 @@ animation:coinFall 1.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s forwards;
 
 /* Title */
 #intro-title{
-margin-top:28px;text-align:center;
-opacity:0;animation:titleRise 0.7s ease 2.6s forwards;
+  margin-top:28px;text-align:center;
+  opacity:0;animation:titleRise 0.7s ease 2.6s forwards;
 }
 #intro-title h1{font-size:32px;font-weight:800;color:#fff;letter-spacing:-1px}
-#intro-title h1 span{color:var(–pink-light)}
+#intro-title h1 span{color:var(--pink-light)}
 #intro-title p{color:rgba(255,255,255,0.5);font-size:14px;margin-top:6px;letter-spacing:1px}
 
 /* Glitter particles */
 .glitter{
-position:absolute;width:8px;height:8px;border-radius:50%;
-pointer-events:none;opacity:0;
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  pointer-events:none;opacity:0;
 }
 
 /* ============================================================
-LOGIN SCREEN
+   LOGIN SCREEN
 ============================================================ */
 #login-screen{
-position:fixed;inset:0;z-index:9000;
-background:linear-gradient(135deg,var(–navy) 0%,#1a0a2e 50%,var(–navy) 100%);
-display:flex;align-items:center;justify-content:center;
-opacity:0;pointer-events:none;transition:opacity 0.6s ease;
+  position:fixed;inset:0;z-index:9000;
+  background:linear-gradient(135deg,var(--navy) 0%,#1a0a2e 50%,var(--navy) 100%);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.6s ease;
 }
 #login-screen.active{opacity:1;pointer-events:all}
 .login-card{
-background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,0.1);border-radius:20px;
-padding:40px;width:380px;
-animation:loginCardIn 0.5s ease both;
+  background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);border-radius:20px;
+  padding:40px;width:380px;
+  animation:loginCardIn 0.5s ease both;
 }
 .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center}
 .login-logo-icon{
-width:50px;height:50px;border-radius:14px;
-background:linear-gradient(135deg,var(–pink),#9333ea);
-display:flex;align-items:center;justify-content:center;font-size:26px;
-animation:float 3s ease-in-out infinite;
+  width:50px;height:50px;border-radius:14px;
+  background:linear-gradient(135deg,var(--pink),#9333ea);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  animation:float 3s ease-in-out infinite;
 }
 .login-logo h2{color:#fff;font-size:20px;font-weight:800}
 .login-logo span{color:rgba(255,255,255,0.4);font-size:11px;display:block}
@@ -103,49 +102,49 @@ animation:float 3s ease-in-out infinite;
 .login-field{margin-bottom:16px}
 .login-field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px}
 .login-field input{
-width:100%;padding:12px 16px;
-background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
-border-radius:var(–rs);color:#fff;font-family:inherit;font-size:14px;
-transition:border-color 0.2s;
+  width:100%;padding:12px 16px;
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
+  border-radius:var(--rs);color:#fff;font-family:inherit;font-size:14px;
+  transition:border-color 0.2s;
 }
 .login-field input::placeholder{color:rgba(255,255,255,0.25)}
-.login-field input:focus{outline:none;border-color:var(–pink)}
+.login-field input:focus{outline:none;border-color:var(--pink)}
 .btn-login{
-width:100%;padding:13px;margin-top:8px;
-background:linear-gradient(135deg,var(–pink),#9333ea);
-border:none;border-radius:var(–rs);color:#fff;
-font-family:inherit;font-size:15px;font-weight:700;
-cursor:pointer;transition:opacity 0.2s,transform 0.15s;
+  width:100%;padding:13px;margin-top:8px;
+  background:linear-gradient(135deg,var(--pink),#9333ea);
+  border:none;border-radius:var(--rs);color:#fff;
+  font-family:inherit;font-size:15px;font-weight:700;
+  cursor:pointer;transition:opacity 0.2s,transform 0.15s;
 }
 .btn-login:hover{opacity:0.9;transform:translateY(-1px)}
 .login-toggle{color:rgba(255,255,255,0.45);font-size:12px;text-align:center;margin-top:16px;cursor:pointer}
-.login-toggle span{color:var(–pink-light);text-decoration:underline}
+.login-toggle span{color:var(--pink-light);text-decoration:underline}
 .login-error{color:#f87171;font-size:12px;text-align:center;margin-top:10px;min-height:18px}
 
 /* ============================================================
-APP LAYOUT
+   APP LAYOUT
 ============================================================ */
 #app{
-display:flex;height:100vh;
-opacity:0;pointer-events:none;transition:opacity 0.6s ease;
+  display:flex;height:100vh;
+  opacity:0;pointer-events:none;transition:opacity 0.6s ease;
 }
 #app.active{opacity:1;pointer-events:all}
 
 /* SIDEBAR */
 #sidebar{
-width:240px;min-width:240px;
-background:linear-gradient(180deg,var(–navy) 0%,var(–navy2) 100%);
-display:flex;flex-direction:column;overflow:hidden;position:relative;z-index:10;
+  width:240px;min-width:240px;
+  background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);
+  display:flex;flex-direction:column;overflow:hidden;position:relative;z-index:10;
 }
 .sidebar-logo{
-padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.06);
-display:flex;align-items:center;gap:12px;
+  padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;gap:12px;
 }
 .s-logo-icon{
-width:40px;height:40px;border-radius:10px;flex-shrink:0;
-background:linear-gradient(135deg,var(–pink),#9333ea);
-display:flex;align-items:center;justify-content:center;font-size:20px;
-animation:float 3s ease-in-out infinite;
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),#9333ea);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  animation:float 3s ease-in-out infinite;
 }
 .s-logo-text strong{color:#fff;font-size:14px;font-weight:800;display:block;line-height:1.2}
 .s-logo-text em{color:rgba(255,255,255,0.35);font-size:10px;font-style:normal;letter-spacing:0.5px}
@@ -153,26 +152,26 @@ animation:float 3s ease-in-out infinite;
 .nav-section{margin-bottom:6px}
 .nav-label{color:rgba(255,255,255,0.28);font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:8px 10px 4px}
 .nav-item{
-display:flex;align-items:center;gap:10px;
-padding:10px 12px;border-radius:var(–rs);
-color:rgba(255,255,255,0.55);font-size:13.5px;font-weight:500;
-cursor:pointer;transition:all 0.2s;margin-bottom:2px;
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:var(--rs);
+  color:rgba(255,255,255,0.55);font-size:13.5px;font-weight:500;
+  cursor:pointer;transition:all 0.2s;margin-bottom:2px;
 }
 .nav-item:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.9)}
 .nav-item.active{background:rgba(232,67,147,0.22);color:#fff}
 .nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
-.badge-red{background:var(–red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px;margin-left:auto}
+.badge-red{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px;margin-left:auto}
 .sidebar-footer{padding:14px 10px;border-top:1px solid rgba(255,255,255,0.06)}
 .sidebar-user{
-display:flex;align-items:center;gap:10px;
-padding:8px 10px;border-radius:var(–rs);cursor:pointer;transition:background 0.2s;
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:var(--rs);cursor:pointer;transition:background 0.2s;
 }
 .sidebar-user:hover{background:rgba(255,255,255,0.06)}
 .user-avatar{
-width:34px;height:34px;border-radius:50%;flex-shrink:0;
-background:linear-gradient(135deg,var(–pink),#9333ea);
-display:flex;align-items:center;justify-content:center;
-font-size:13px;font-weight:700;color:#fff;
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),#9333ea);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;
 }
 .user-info strong{color:#fff;font-size:13px;display:block}
 .user-info em{color:rgba(255,255,255,0.35);font-size:11px;font-style:normal}
@@ -180,26 +179,26 @@ font-size:13px;font-weight:700;color:#fff;
 /* MAIN */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{
-background:var(–card);border-bottom:1px solid var(–border);
-padding:0 26px;height:58px;
-display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:0 26px;height:58px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
 }
-.topbar-title{font-size:17px;font-weight:800;color:var(–text)}
+.topbar-title{font-size:17px;font-weight:800;color:var(--text)}
 .topbar-actions{display:flex;align-items:center;gap:10px}
 .btn{
-display:inline-flex;align-items:center;gap:6px;
-padding:8px 16px;border-radius:var(–rs);
-font-size:13px;font-weight:600;cursor:pointer;border:none;
-transition:all 0.15s;font-family:inherit;text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:var(--rs);
+  font-size:13px;font-weight:600;cursor:pointer;border:none;
+  transition:all 0.15s;font-family:inherit;text-decoration:none;
 }
-.btn-primary{background:var(–pink);color:#fff}
+.btn-primary{background:var(--pink);color:#fff}
 .btn-primary:hover{background:#d13580;transform:translateY(-1px)}
-.btn-ghost{background:transparent;color:var(–muted);border:1px solid var(–border)}
-.btn-ghost:hover{background:var(–bg);color:var(–text)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--bg);color:var(--text)}
 #content{flex:1;overflow-y:auto;padding:22px 26px}
 
 /* ============================================================
-SECTIONS
+   SECTIONS
 ============================================================ */
 .section{display:none;animation:fadeIn 0.3s ease}
 .section.active{display:block}
@@ -207,103 +206,103 @@ SECTIONS
 /* Pills */
 .month-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
 .pill{
-padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;
-cursor:pointer;border:1px solid var(–border);background:var(–card);color:var(–muted);
-transition:all 0.15s;font-family:inherit;
+  padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;
+  cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);
+  transition:all 0.15s;font-family:inherit;
 }
-.pill:hover{border-color:var(–pink);color:var(–pink)}
-.pill.active{background:var(–pink);color:#fff;border-color:var(–pink)}
+.pill:hover{border-color:var(--pink);color:var(--pink)}
+.pill.active{background:var(--pink);color:#fff;border-color:var(--pink)}
 
 /* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
 .kpi-card{
-background:var(–card);border-radius:var(–r);padding:18px;
-border:1px solid var(–border);cursor:default;
-transition:transform 0.2s,box-shadow 0.2s;
+  background:var(--card);border-radius:var(--r);padding:18px;
+  border:1px solid var(--border);cursor:default;
+  transition:transform 0.2s,box-shadow 0.2s;
 }
 .kpi-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.07)}
-.kpi-icon{width:38px;height:38px;border-radius:var(–rs);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;animation:floatIcon 3s ease-in-out infinite}
-.kpi-label{font-size:11px;color:var(–muted);font-weight:500;margin-bottom:3px}
+.kpi-icon{width:38px;height:38px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;animation:floatIcon 3s ease-in-out infinite}
+.kpi-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:3px}
 .kpi-value{font-size:20px;font-weight:800}
 .kpi-delta{font-size:11px;margin-top:3px;font-weight:600}
-.delta-up{color:var(–green)}.delta-down{color:var(–red)}
+.delta-up{color:var(--green)}.delta-down{color:var(--red)}
 
 /* Chart grid */
 .chart-grid{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-bottom:20px}
-.chart-card{background:var(–card);border-radius:var(–r);padding:18px;border:1px solid var(–border)}
-.chart-title{font-size:13px;font-weight:700;margin-bottom:14px;color:var(–text)}
+.chart-card{background:var(--card);border-radius:var(--r);padding:18px;border:1px solid var(--border)}
+.chart-title{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--text)}
 
 /* Tables */
 .data-table{width:100%;border-collapse:collapse;font-size:13px}
-.data-table th{padding:9px 12px;text-align:left;font-size:11px;font-weight:600;color:var(–muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(–border)}
-.data-table td{padding:9px 12px;border-bottom:1px solid var(–border)}
+.data-table th{padding:9px 12px;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--border)}
 .data-table tr:last-child td{border-bottom:none}
-.data-table tbody tr:hover td{background:var(–bg)}
+.data-table tbody tr:hover td{background:var(--bg)}
 .tag{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
-.tag-green{background:var(–green-pale);color:#065f46}
-.tag-blue{background:var(–blue-pale);color:#1e40af}
-.tag-pink{background:var(–pink-pale);color:#9d174d}
-.tag-amber{background:var(–amber-pale);color:#92400e}
-.tag-red{background:var(–red-pale);color:#991b1b}
+.tag-green{background:var(--green-pale);color:#065f46}
+.tag-blue{background:var(--blue-pale);color:#1e40af}
+.tag-pink{background:var(--pink-pale);color:#9d174d}
+.tag-amber{background:var(--amber-pale);color:#92400e}
+.tag-red{background:var(--red-pale);color:#991b1b}
 
 /* Progress */
 .progress-row{margin-bottom:10px}
 .progress-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
-.progress-bar{height:6px;background:var(–border);border-radius:4px;overflow:hidden}
+.progress-bar{height:6px;background:var(--border);border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;border-radius:4px;transition:width 1s ease}
 
 /* Forms */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-group.full{grid-column:1/-1}
-label{font-size:12px;font-weight:600;color:var(–muted)}
+label{font-size:12px;font-weight:600;color:var(--muted)}
 input,select,textarea{
-padding:9px 12px;border:1px solid var(–border);border-radius:var(–rs);
-font-family:inherit;font-size:13px;color:var(–text);background:var(–card);
-transition:border-color 0.15s;
+  padding:9px 12px;border:1px solid var(--border);border-radius:var(--rs);
+  font-family:inherit;font-size:13px;color:var(--text);background:var(--card);
+  transition:border-color 0.15s;
 }
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(–pink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pink)}
 textarea{resize:vertical;min-height:80px}
 
 /* Stock cards */
 .stock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .stock-card{
-background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:14px;
-transition:transform 0.2s,box-shadow 0.2s;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;
+  transition:transform 0.2s,box-shadow 0.2s;
 }
 .stock-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.06)}
 .stock-level{font-size:22px;font-weight:800}
-.stock-low{color:var(–amber)}.stock-ok{color:var(–green)}.stock-out{color:var(–red)}
+.stock-low{color:var(--amber)}.stock-ok{color:var(--green)}.stock-out{color:var(--red)}
 
 /* Plan de cuentas */
-.cuenta-row{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:1px solid var(–border);font-size:13px;transition:background 0.1s}
-.cuenta-row:hover{background:var(–bg)}
-.cuenta-code{font-family:monospace;font-size:11px;color:var(–muted);min-width:90px}
+.cuenta-row{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:1px solid var(--border);font-size:13px;transition:background 0.1s}
+.cuenta-row:hover{background:var(--bg)}
+.cuenta-code{font-family:monospace;font-size:11px;color:var(--muted);min-width:90px}
 .cuenta-cat{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
-.cat-A{background:var(–blue-pale);color:#1e40af}
-.cat-P{background:var(–red-pale);color:#991b1b}
-.cat-N{background:var(–green-pale);color:#065f46}
-.cat-R{background:var(–amber-pale);color:#92400e}
+.cat-A{background:var(--blue-pale);color:#1e40af}
+.cat-P{background:var(--red-pale);color:#991b1b}
+.cat-N{background:var(--green-pale);color:#065f46}
+.cat-R{background:var(--amber-pale);color:#92400e}
 .cat-M{background:#f3f4f6;color:#374151}
 .cat-O{background:#faf5ff;color:#6b21a8}
 
 /* Libro diario */
-.asiento{background:var(–card);border:1px solid var(–border);border-radius:var(–r);margin-bottom:10px;overflow:hidden}
-.asiento-header{background:var(–bg);padding:9px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(–border);font-size:13px}
-.asiento-num{font-weight:800;color:var(–pink)}
+.asiento{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.asiento-header{background:var(--bg);padding:9px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);font-size:13px}
+.asiento-num{font-weight:800;color:var(--pink)}
 .asiento-line{display:grid;grid-template-columns:28px 1fr 110px 110px}
-.asiento-line>div{padding:7px 16px;font-size:12px;border-bottom:1px solid var(–border)}
+.asiento-line>div{padding:7px 16px;font-size:12px;border-bottom:1px solid var(--border)}
 .asiento-line:last-child>div{border-bottom:none}
 .haber{padding-left:28px!important}
 .amount{font-weight:700;text-align:right}
-.amount-debe{color:var(–blue)}.amount-haber{color:var(–red)}
+.amount-debe{color:var(--blue)}.amount-haber{color:var(--red)}
 
 /* Estado contable */
 .estado-table{width:100%;border-collapse:collapse;font-size:13px}
-.estado-table th{background:var(–bg);padding:9px 16px;text-align:left;font-weight:700;font-size:11px;color:var(–muted);text-transform:uppercase;border:1px solid var(–border)}
-.estado-table td{padding:7px 16px;border:1px solid var(–border)}
-.estado-table .total-row td{font-weight:800;background:var(–bg)}
-.estado-table .section-title td{font-weight:700;background:#f8faff;color:var(–pink)}
+.estado-table th{background:var(--bg);padding:9px 16px;text-align:left;font-weight:700;font-size:11px;color:var(--muted);text-transform:uppercase;border:1px solid var(--border)}
+.estado-table td{padding:7px 16px;border:1px solid var(--border)}
+.estado-table .total-row td{font-weight:800;background:var(--bg)}
+.estado-table .section-title td{font-weight:700;background:#f8faff;color:var(--pink)}
 .tr{text-align:right}
 
 /* Chat */
@@ -313,36 +312,36 @@ transition:transform 0.2s,box-shadow 0.2s;
 .chat-msg.user{align-self:flex-end}
 .chat-msg.bot{align-self:flex-start}
 .msg-bubble{padding:11px 15px;border-radius:16px;font-size:13.5px;line-height:1.55}
-.msg-bubble.user{background:linear-gradient(135deg,var(–pink),#9333ea);color:#fff;border-bottom-right-radius:3px}
-.msg-bubble.bot{background:var(–card);border:1px solid var(–border);color:var(–text);border-bottom-left-radius:3px}
-.msg-time{font-size:10px;color:var(–muted);margin-top:3px}
-.chat-input-row{padding:14px;border-top:1px solid var(–border);display:flex;gap:10px;background:var(–card);border-radius:0 0 var(–r) var(–r)}
-.chat-input{flex:1;border:1px solid var(–border);border-radius:22px;padding:9px 16px;font-family:inherit;font-size:13px;resize:none;background:var(–bg)}
-.chat-input:focus{outline:none;border-color:var(–pink)}
+.msg-bubble.user{background:linear-gradient(135deg,var(--pink),#9333ea);color:#fff;border-bottom-right-radius:3px}
+.msg-bubble.bot{background:var(--card);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:3px}
+.msg-time{font-size:10px;color:var(--muted);margin-top:3px}
+.chat-input-row{padding:14px;border-top:1px solid var(--border);display:flex;gap:10px;background:var(--card);border-radius:0 0 var(--r) var(--r)}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:22px;padding:9px 16px;font-family:inherit;font-size:13px;resize:none;background:var(--bg)}
+.chat-input:focus{outline:none;border-color:var(--pink)}
 .chat-send{
-background:linear-gradient(135deg,var(–pink),#9333ea);color:#fff;border:none;
-border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;
-transition:opacity 0.2s,transform 0.15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),#9333ea);color:#fff;border:none;
+  border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;
+  transition:opacity 0.2s,transform 0.15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 .chat-send:hover{opacity:0.85;transform:scale(1.05)}
 .thinking{display:flex;gap:5px;align-items:center;padding:2px 0}
-.thinking span{width:7px;height:7px;border-radius:50%;background:var(–muted);animation:bounce 1.2s infinite}
+.thinking span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite}
 .thinking span:nth-child(2){animation-delay:.2s}
 .thinking span:nth-child(3){animation-delay:.4s}
 
 /* Modals */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;display:none;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:var(–card);border-radius:var(–r);padding:26px;width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.modal{background:var(--card);border-radius:var(--r);padding:26px;width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
 .modal-title{font-size:17px;font-weight:800;margin-bottom:18px}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 
 /* Notif toast */
 #toast{
-position:fixed;bottom:24px;right:24px;z-index:800;
-background:var(–text);color:#fff;padding:12px 20px;border-radius:var(–rs);
-font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);
-transition:all 0.3s ease;pointer-events:none;max-width:320px;line-height:1.4;
+  position:fixed;bottom:24px;right:24px;z-index:800;
+  background:var(--text);color:#fff;padding:12px 20px;border-radius:var(--rs);
+  font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);
+  transition:all 0.3s ease;pointer-events:none;max-width:320px;line-height:1.4;
 }
 #toast.show{opacity:1;transform:translateY(0)}
 #toast.success{background:#065f46}
@@ -353,13 +352,13 @@ transition:all 0.3s ease;pointer-events:none;max-width:320px;line-height:1.4;
 .legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
 /* ============================================================
-ANIMATIONS
+   ANIMATIONS
 ============================================================ */
 @keyframes coinFall{
-0%{top:-70px;transform:rotate(0deg);opacity:1}
-70%{top:calc(50vh - 220px);transform:rotate(540deg);opacity:1}
-85%{top:calc(50vh - 230px);transform:rotate(560deg);opacity:1}
-100%{top:calc(50vh - 200px);transform:rotate(580deg);opacity:0}
+  0%{top:-70px;transform:rotate(0deg);opacity:1}
+  70%{top:calc(50vh - 220px);transform:rotate(540deg);opacity:1}
+  85%{top:calc(50vh - 230px);transform:rotate(560deg);opacity:1}
+  100%{top:calc(50vh - 200px);transform:rotate(580deg);opacity:0}
 }
 @keyframes titleRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pigWink{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
@@ -370,155 +369,151 @@ ANIMATIONS
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes twinkle{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
-@keyframes glitter{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(0) translate(var(–gx),var(–gy))}}
+@keyframes glitter{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(0) translate(var(--gx),var(--gy))}}
 @keyframes piggyBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(–border);border-radius:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
 /* ═══════════════════════════════════════════
-RESPONSIVE — MOBILE & TABLET
+   RESPONSIVE — MOBILE & TABLET
 ═══════════════════════════════════════════ */
 
 /* Hamburger — hidden on desktop */
 #mob-menu-btn{
-display:none;background:none;border:none;cursor:pointer;
-padding:6px 8px;border-radius:var(–rs);color:var(–text);font-size:22px;
-line-height:1;transition:background .2s;flex-shrink:0;
+  display:none;background:none;border:none;cursor:pointer;
+  padding:6px 8px;border-radius:var(--rs);color:var(--text);font-size:22px;
+  line-height:1;transition:background .2s;flex-shrink:0;
 }
-#mob-menu-btn:hover{background:var(–bg)}
+#mob-menu-btn:hover{background:var(--bg)}
 
 /* Sidebar overlay */
 #sb-overlay{
-display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
-z-index:99;backdrop-filter:blur(2px);
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:99;backdrop-filter:blur(2px);
 }
 #sb-overlay.open{display:block}
 
 /* Bottom nav */
 #bottom-nav{
-display:none;
-position:fixed;bottom:0;left:0;right:0;
-background:var(–card);border-top:1px solid var(–border);
-z-index:90;padding:6px 0 max(6px, env(safe-area-inset-bottom));
-flex-direction:row;align-items:center;justify-content:space-around;
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--card);border-top:1px solid var(--border);
+  z-index:90;padding:6px 0 max(6px, env(safe-area-inset-bottom));
+  flex-direction:row;align-items:center;justify-content:space-around;
 }
 .bnav-item{
-display:flex;flex-direction:column;align-items:center;gap:2px;
-padding:4px 6px;border-radius:var(–rs);cursor:pointer;
-font-size:9px;font-weight:600;color:var(–muted);transition:all .2s;
-min-width:46px;text-align:center;border:none;background:none;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:4px 6px;border-radius:var(--rs);cursor:pointer;
+  font-size:9px;font-weight:600;color:var(--muted);transition:all .2s;
+  min-width:46px;text-align:center;border:none;background:none;font-family:inherit;
 }
 .bnav-item .bi{font-size:17px;line-height:1}
-.bnav-item.on{color:var(–pink)}
-.bnav-badge{background:var(–red);color:#fff;font-size:9px;font-weight:700;
-padding:1px 5px;border-radius:20px;display:inline-block;margin-top:1px}
+.bnav-item.on{color:var(--pink)}
+.bnav-badge{background:var(--red);color:#fff;font-size:9px;font-weight:700;
+  padding:1px 5px;border-radius:20px;display:inline-block;margin-top:1px}
 
 @media(max-width:768px){
-html,body{overflow:auto}
+  html,body{overflow:auto}
 
-/* App: column layout */
-#app{flex-direction:column;height:auto;min-height:100vh}
+  /* App: column layout */
+  #app{flex-direction:column;height:auto;min-height:100vh}
 
-/* Sidebar: drawer */
-#sidebar{
-position:fixed;top:0;left:0;bottom:0;
-width:250px;min-width:unset;
-transform:translateX(-100%);
-transition:transform .3s cubic-bezier(.4,0,.2,1);
-z-index:100;
-}
-#sidebar.open{transform:translateX(0)}
+  /* Sidebar: drawer */
+  #sidebar{
+    position:fixed;top:0;left:0;bottom:0;
+    width:250px;min-width:unset;
+    transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    z-index:100;
+  }
+  #sidebar.open{transform:translateX(0)}
 
-/* Main */
-#main{width:100%;min-height:100vh}
+  /* Main */
+  #main{width:100%;min-height:100vh}
 
-/* Topbar */
-.topbar{padding:0 12px;height:52px}
-.topbar-title{font-size:15px}
-#mob-menu-btn{display:flex;align-items:center;justify-content:center}
+  /* Topbar */
+  .topbar{padding:0 12px;height:52px}
+  .topbar-title{font-size:15px}
+  #mob-menu-btn{display:flex;align-items:center;justify-content:center}
 
-/* Hide export button on mobile */
-.topbar .btn-ghost{display:none}
-.topbar .btn-primary{font-size:11px;padding:6px 10px}
+  /* Hide export button on mobile */
+  .topbar .btn-ghost{display:none}
+  .topbar .btn-primary{font-size:11px;padding:6px 10px}
 
-/* Content */
-#content{padding:14px;padding-bottom:80px}
+  /* Content */
+  #content{padding:14px;padding-bottom:80px}
 
-/* Bottom nav */
-#bottom-nav{display:flex}
+  /* Bottom nav */
+  #bottom-nav{display:flex}
 
-/* KPI grids */
-.kpi-grid{grid-template-columns:1fr 1fr!important}
+  /* KPI grids */
+  .kpi-grid{grid-template-columns:1fr 1fr!important}
 
-/* All grids → 1 column */
-.chart-grid,
-.form-grid,
-[style*=“grid-template-columns:1fr 1fr”],
-[style*=“grid-template-columns:1fr 1fr 1fr”],
-[style*=“grid-template-columns:repeat(4”],
-[style*=“grid-template-columns:repeat(3”]{
-grid-template-columns:1fr!important;
-}
+  /* All grids → 1 column */
+  .chart-grid,
+  .form-grid,
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns:repeat(3"]{
+    grid-template-columns:1fr!important;
+  }
 
-/* Stock grid */
-.stock-grid{grid-template-columns:1fr 1fr!important}
+  /* Stock grid */
+  .stock-grid{grid-template-columns:1fr 1fr!important}
 
-/* Tables scrollable */
-.data-table{display:block;overflow-x:auto;white-space:nowrap;width:100%}
-.chart-card table{display:block;overflow-x:auto;width:100%}
+  /* Tables scrollable */
+  .data-table{display:block;overflow-x:auto;white-space:nowrap;width:100%}
+  .chart-card table{display:block;overflow-x:auto;width:100%}
 
-/* Cards */
-.chart-card{padding:14px}
+  /* Cards */
+  .chart-card{padding:14px}
 
-/* Form full-column */
-.form-group.full{grid-column:1!important}
+  /* Form full-column */
+  .form-group.full{grid-column:1!important}
 
-/* Modal */
-#modal-historial-producto > div{
-width:calc(100vw - 24px)!important;
-max-height:92vh!important;
-padding:18px!important;
-}
+  /* Modal */
+  #modal-historial-producto > div{
+    width:calc(100vw - 24px)!important;
+    max-height:92vh!important;
+    padding:18px!important;
+  }
 
-/* Login */
-.login-card{width:calc(100vw - 32px);padding:26px 18px}
+  /* Login */
+  .login-card{width:calc(100vw - 32px);padding:26px 18px}
 
-/* Toast */
-#toast{bottom:76px;right:10px;left:10px;max-width:unset;text-align:center}
+  /* Toast */
+  #toast{bottom:76px;right:10px;left:10px;max-width:unset;text-align:center}
 
-/* Month pills: horizontal scroll */
-.month-pills{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
-.month-pills::-webkit-scrollbar{height:2px}
+  /* Month pills: horizontal scroll */
+  .month-pills{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .month-pills::-webkit-scrollbar{height:2px}
 }
 
 @media(max-width:420px){
-.kpi-grid{grid-template-columns:1fr 1fr!important}
-.kpi-value{font-size:17px}
-.stock-grid{grid-template-columns:1fr!important}
+  .kpi-grid{grid-template-columns:1fr 1fr!important}
+  .kpi-value{font-size:17px}
+  .stock-grid{grid-template-columns:1fr!important}
 }
 </style>
-
 </head>
 <body>
 
 <!-- ============================================================
      INTRO SCREEN
 ============================================================ -->
-
 <div id="intro-screen">
   <!-- Stars -->
   <div id="stars-wrap"></div>
 
   <!-- Falling coin -->
-
   <div id="coin-track">
     <div id="coin">$</div>
   </div>
 
   <!-- Piggy -->
-
   <div id="piggy-wrap">
     <svg id="piggy-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <!-- Body -->
@@ -568,7 +563,6 @@ padding:18px!important;
   </div>
 
   <!-- Title -->
-
   <div id="intro-title">
     <h1>PIG <span>FINANZAS</span></h1>
     <p>GESTIÓN INTELIGENTE · BY MATEO</p>
@@ -578,7 +572,6 @@ padding:18px!important;
 <!-- ============================================================
      LOGIN SCREEN
 ============================================================ -->
-
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -617,13 +610,11 @@ padding:18px!important;
 <!-- ============================================================
      MAIN APP
 ============================================================ -->
-
 <div id="app">
 <!-- Sidebar overlay backdrop -->
 <div id="sb-overlay" onclick="closeSidebar()"></div>
 
 <!-- Bottom nav (mobile only) -->
-
 <div id="bottom-nav">
   <button class="bnav-item on" id="bn-dashboard" onclick="showSection('dashboard',document.querySelectorAll('.nav-item')[0]);setBottomNav('dashboard')"><span class="bi">🏠</span>Inicio</button>
   <button class="bnav-item" id="bn-ventas" onclick="showSection('ventas',document.querySelectorAll('.nav-item')[1]);setBottomNav('ventas')"><span class="bi">💰</span>Ventas</button>
@@ -656,20 +647,17 @@ padding:18px!important;
         <div class="nav-item" onclick="showSection('estados',this)"><span class="nav-icon">📈</span>Estados Contables</div>
       </div>
 
-```
-</div>
-<div class="sidebar-footer">
-  <div class="sidebar-user">
-    <div class="user-avatar" id="user-avatar-text">ME</div>
-    <div class="user-info">
-      <strong id="user-display-name">Usuario</strong>
-      <em id="user-empresa-name">Empresa</em>
     </div>
-  </div>
-  <button class="btn btn-ghost" onclick="logout()" style="width:100%;margin-top:8px;font-size:12px">↩ Cerrar sesión</button>
-</div>
-```
-
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="user-avatar-text">ME</div>
+        <div class="user-info">
+          <strong id="user-display-name">Usuario</strong>
+          <em id="user-empresa-name">Empresa</em>
+        </div>
+      </div>
+      <button class="btn btn-ghost" onclick="logout()" style="width:100%;margin-top:8px;font-size:12px">↩ Cerrar sesión</button>
+    </div>
   </nav>
 
   <div id="main">
@@ -685,417 +673,410 @@ padding:18px!important;
     </div>
     <div id="content">
 
-```
-  <!-- DASHBOARD -->
-  <div id="section-dashboard" class="section active">
-    <div class="month-pills" id="month-pills"></div>
-    <div class="kpi-grid" id="kpi-grid"></div>
-    <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Evolución mensual — Ventas vs Compras</div>
-        <canvas id="chartVentas" height="220"></canvas>
-      </div>
-      <div class="chart-card" style="display:flex;flex-direction:column">
-        <div class="chart-title">Distribución de gastos</div>
-        <canvas id="chartGastos" height="180"></canvas>
-        <div id="gastos-legend" style="margin-top:10px;flex:1"></div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
-      <div class="chart-card" style="grid-column:1/3">
-        <div class="chart-title">Últimas transacciones</div>
-        <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Importe</th></tr></thead>
-        <tbody id="tabla-tx"></tbody></table></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Progreso por área</div>
-        <div id="progress-cats"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- VENTAS -->
-  <div id="section-ventas" class="section">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-      <div class="chart-card">
-        <div class="chart-title">Registrar Venta</div>
-        <div class="form-grid">
-          <div class="form-group"><label>Fecha</label><input type="date" id="v-fecha"></div>
-          <div class="form-group"><label>Cliente</label><input type="text" id="v-cliente" placeholder="Nombre del cliente"></div>
-          <div class="form-group"><label>Producto</label><select id="v-producto" onchange="calcVenta()"></select></div>
-          <div class="form-group"><label>Cantidad</label><input type="number" id="v-cantidad" min="1" value="1" oninput="calcVenta()"></div>
-          <div class="form-group"><label>Precio venta</label><input type="number" id="v-precio" placeholder="0.00" oninput="calcVenta()"></div>
-          <div class="form-group"><label>Forma de pago</label><select id="v-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option></select></div>
-          <div class="form-group full" style="background:var(--bg);padding:10px;border-radius:var(--rs);flex-direction:row;gap:20px;align-items:center">
-            <span style="font-size:13px">Total: <strong id="v-total" style="color:var(--pink)">$0</strong></span>
-            <span style="font-size:13px">Margen: <strong id="v-margen" style="color:var(--green)">—</strong></span>
+      <!-- DASHBOARD -->
+      <div id="section-dashboard" class="section active">
+        <div class="month-pills" id="month-pills"></div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">Evolución mensual — Ventas vs Compras</div>
+            <canvas id="chartVentas" height="220"></canvas>
           </div>
-          <div class="form-group full">
-            <button class="btn btn-primary" onclick="guardarVenta()" style="width:100%;padding:11px">✓ Registrar venta</button>
+          <div class="chart-card" style="display:flex;flex-direction:column">
+            <div class="chart-title">Distribución de gastos</div>
+            <canvas id="chartGastos" height="180"></canvas>
+            <div id="gastos-legend" style="margin-top:10px;flex:1"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+          <div class="chart-card" style="grid-column:1/3">
+            <div class="chart-title">Últimas transacciones</div>
+            <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Importe</th></tr></thead>
+            <tbody id="tabla-tx"></tbody></table></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Progreso por área</div>
+            <div id="progress-cats"></div>
           </div>
         </div>
       </div>
-      <div class="chart-card">
-        <div class="chart-title">Productos más vendidos</div>
-        <canvas id="chartTopVentas" height="240"></canvas>
-      </div>
-    </div>
-    <div class="chart-card" style="margin-bottom:14px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div class="chart-title" style="margin:0">Historial de Ventas</div>
-        <input type="text" placeholder="Buscar…" style="width:170px;padding:6px 12px;font-size:12px" oninput="filtrarVentas(this.value)">
-      </div>
-      <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Cliente</th><th>Producto</th><th>Cant.</th><th>Precio</th><th>Total</th><th>Pago</th><th>Margen</th></tr></thead>
-      <tbody id="tabla-ventas"></tbody></table></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-      <div class="chart-card"><div class="chart-title">Métodos de pago</div><canvas id="chartPagosVenta" height="220"></canvas></div>
-      <div class="chart-card"><div class="chart-title">Top clientes</div><div id="top-clientes"></div></div>
-    </div>
-  </div>
 
-  <!-- COMPRAS -->
-  <div id="section-compras" class="section">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-      <div class="chart-card">
-        <div class="chart-title">Registrar Compra</div>
-        <div class="form-grid">
-          <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha"></div>
-          <div class="form-group"><label>Proveedor</label><input type="text" id="c-proveedor" placeholder="Nombre del proveedor"></div>
-          <div class="form-group"><label>Producto</label>
-            <select id="c-producto" onchange="onCompraProductoChange()">
-              <option value="">— Seleccioná un producto —</option>
-            </select>
-          </div>
-          <div class="form-group full" id="c-nuevo-producto-row" style="display:none">
-            <label>Nombre del nuevo producto</label>
-            <input type="text" id="c-producto-nuevo" placeholder="Ej: Remera talle M, Mesa de roble...">
-          </div>
-          <div class="form-group"><label>Cantidad</label><input type="number" id="c-cantidad" min="1" value="1" oninput="calcCompra()"></div>
-          <div class="form-group"><label>Precio unitario</label><input type="number" id="c-precio" placeholder="0.00" oninput="calcCompra()"></div>
-          <div class="form-group"><label>Forma de pago</label><select id="c-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Cuenta corriente</option></select></div>
-          <div class="form-group full" style="background:var(--bg);padding:10px;border-radius:var(--rs)">
-            <span style="font-size:13px">Total: <strong id="c-total" style="color:var(--pink)">$0</strong></span>
-          </div>
-          <div class="form-group full">
-            <button class="btn btn-primary" onclick="guardarCompra()" style="width:100%;padding:11px">✓ Registrar compra</button>
-          </div>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Distribución de compras</div>
-        <canvas id="chartGastosCompra" height="200"></canvas>
-        <div style="margin-top:12px"><div class="chart-title" style="margin-bottom:8px">Top proveedores</div><div id="top-proveedores"></div></div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div class="chart-title" style="margin:0">Historial de Compras</div>
-        <input type="text" placeholder="Buscar…" style="width:170px;padding:6px 12px;font-size:12px" oninput="filtrarCompras(this.value)">
-      </div>
-      <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Proveedor</th><th>Producto</th><th>Cant.</th><th>Precio U.</th><th>Total</th><th>Pago</th></tr></thead>
-      <tbody id="tabla-compras"></tbody></table></div>
-    </div>
-  </div>
-
-  <!-- GASTOS -->
-  <div id="section-gastos" class="section">
-    <!-- KPIs gastos -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px" id="gastos-kpis"></div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-      <!-- Formulario -->
-      <div class="chart-card">
-        <div class="chart-title">Registrar Gasto</div>
-        <div class="form-grid">
-          <div class="form-group"><label>Fecha</label><input type="date" id="g-fecha"></div>
-          <div class="form-group"><label>Forma de pago</label>
-            <select id="g-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option></select>
-          </div>
-          <div class="form-group full">
-            <label>Concepto / Categoría</label>
-            <select id="g-concepto" onchange="onGastoConceptoChange()">
-              <option value="Alquileres">🏢 Alquileres</option>
-              <option value="Sueldos y jornales">👷 Sueldos y jornales</option>
-              <option value="Servicios Públicos">💡 Servicios Públicos (Luz, Agua, Gas)</option>
-              <option value="Telefonía e Internet">📡 Telefonía e Internet</option>
-              <option value="Seguros">🛡️ Seguros</option>
-              <option value="Publicidad">📢 Publicidad y Marketing</option>
-              <option value="Fletes">🚚 Fletes y Transporte</option>
-              <option value="Honorarios Profesionales">⚖️ Honorarios Profesionales</option>
-              <option value="Mantenimiento">🔧 Mantenimiento y Reparaciones</option>
-              <option value="Gastos Bancarios">🏦 Gastos Bancarios y Comisiones</option>
-              <option value="Impuestos y Tasas">📄 Impuestos y Tasas</option>
-              <option value="Limpieza">🧹 Limpieza e Higiene</option>
-              <option value="Librería y Útiles">📎 Librería y Útiles de Oficina</option>
-              <option value="Combustible">⛽ Combustible</option>
-              <option value="Amortización M. y Útiles">🖥️ Amortización Muebles y Útiles</option>
-              <option value="Amortización Instalaciones">🏗️ Amortización Instalaciones</option>
-              <option value="Gastos Varios">📋 Gastos Varios</option>
-              <option value="__otro__">✏️ Otro (especificar)</option>
-            </select>
-          </div>
-          <div class="form-group full" id="g-otro-row" style="display:none">
-            <label>Especificá el concepto</label>
-            <input type="text" id="g-otro-texto" placeholder="Ej: gastos de mudanza, capacitación...">
-          </div>
-          <div class="form-group full">
-            <label>Descripción / Detalle (opcional)</label>
-            <input type="text" id="g-descripcion" placeholder="Ej: Mes de marzo, factura N° 001...">
-          </div>
-          <div class="form-group"><label>Importe</label><input type="number" id="g-importe" placeholder="0.00" oninput="calcGasto()"></div>
-          <div class="form-group" id="g-cuotas-row">
-            <label>Cuotas (1 = contado)</label>
-            <input type="number" id="g-cuotas" min="1" max="60" value="1" oninput="calcGasto()">
-          </div>
-          <div class="form-group full" id="g-total-row">
-            <div style="background:var(--bg);border-radius:var(--rs);padding:11px 16px;display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:13px;color:var(--muted)">Importe a registrar</span>
-              <span style="font-size:18px;font-weight:800;color:var(--red)" id="g-total-display">$ 0</span>
+      <!-- VENTAS -->
+      <div id="section-ventas" class="section">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="chart-card">
+            <div class="chart-title">Registrar Venta</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Fecha</label><input type="date" id="v-fecha"></div>
+              <div class="form-group"><label>Cliente</label><input type="text" id="v-cliente" placeholder="Nombre del cliente"></div>
+              <div class="form-group"><label>Producto</label><select id="v-producto" onchange="calcVenta()"></select></div>
+              <div class="form-group"><label>Cantidad</label><input type="number" id="v-cantidad" min="1" value="1" oninput="calcVenta()"></div>
+              <div class="form-group"><label>Precio venta</label><input type="number" id="v-precio" placeholder="0.00" oninput="calcVenta()"></div>
+              <div class="form-group"><label>Forma de pago</label><select id="v-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option></select></div>
+              <div class="form-group full" style="background:var(--bg);padding:10px;border-radius:var(--rs);flex-direction:row;gap:20px;align-items:center">
+                <span style="font-size:13px">Total: <strong id="v-total" style="color:var(--pink)">$0</strong></span>
+                <span style="font-size:13px">Margen: <strong id="v-margen" style="color:var(--green)">—</strong></span>
+              </div>
+              <div class="form-group full">
+                <button class="btn btn-primary" onclick="guardarVenta()" style="width:100%;padding:11px">✓ Registrar venta</button>
+              </div>
             </div>
           </div>
-          <div class="form-group full">
-            <button class="btn btn-primary" onclick="guardarGasto()" style="width:100%;padding:11px;background:var(--red)">✓ Registrar gasto</button>
+          <div class="chart-card">
+            <div class="chart-title">Productos más vendidos</div>
+            <canvas id="chartTopVentas" height="240"></canvas>
           </div>
+        </div>
+        <div class="chart-card" style="margin-bottom:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div class="chart-title" style="margin:0">Historial de Ventas</div>
+            <input type="text" placeholder="Buscar…" style="width:170px;padding:6px 12px;font-size:12px" oninput="filtrarVentas(this.value)">
+          </div>
+          <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Cliente</th><th>Producto</th><th>Cant.</th><th>Precio</th><th>Total</th><th>Pago</th><th>Margen</th></tr></thead>
+          <tbody id="tabla-ventas"></tbody></table></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="chart-card"><div class="chart-title">Métodos de pago</div><canvas id="chartPagosVenta" height="220"></canvas></div>
+          <div class="chart-card"><div class="chart-title">Top clientes</div><div id="top-clientes"></div></div>
         </div>
       </div>
 
-      <!-- Gráfico donut por categoría -->
-      <div class="chart-card" style="display:flex;flex-direction:column">
-        <div class="chart-title">Distribución por categoría</div>
-        <canvas id="chartGastosCat" style="flex:1;max-height:260px"></canvas>
-        <div id="gastos-cat-legend" style="margin-top:10px"></div>
-      </div>
-    </div>
-
-    <!-- Resumen mensual barras -->
-    <div class="chart-card" style="margin-bottom:16px">
-      <div class="chart-title">Evolución mensual de gastos</div>
-      <canvas id="chartGastosMes" height="140"></canvas>
-    </div>
-
-    <!-- Historial -->
-    <div class="chart-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div class="chart-title" style="margin:0">Historial de Gastos</div>
-        <div style="display:flex;gap:8px">
-          <select id="g-filtro-cat" style="padding:6px 10px;font-size:12px;border-radius:var(--rs);border:1px solid var(--border)" onchange="renderTablaGastos()">
-            <option value="">Todas las categorías</option>
-            <option>Alquileres</option><option>Sueldos y jornales</option>
-            <option>Servicios Públicos</option><option>Telefonía e Internet</option>
-            <option>Seguros</option><option>Publicidad</option><option>Fletes</option>
-            <option>Honorarios Profesionales</option><option>Mantenimiento</option>
-            <option>Gastos Bancarios</option><option>Impuestos y Tasas</option>
-            <option>Gastos Varios</option>
-          </select>
-          <input type="text" placeholder="Buscar…" style="width:150px;padding:6px 12px;font-size:12px" oninput="renderTablaGastos(this.value)">
+      <!-- COMPRAS -->
+      <div id="section-compras" class="section">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="chart-card">
+            <div class="chart-title">Registrar Compra</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha"></div>
+              <div class="form-group"><label>Proveedor</label><input type="text" id="c-proveedor" placeholder="Nombre del proveedor"></div>
+              <div class="form-group"><label>Producto</label>
+                <select id="c-producto" onchange="onCompraProductoChange()">
+                  <option value="">— Seleccioná un producto —</option>
+                </select>
+              </div>
+              <div class="form-group full" id="c-nuevo-producto-row" style="display:none">
+                <label>Nombre del nuevo producto</label>
+                <input type="text" id="c-producto-nuevo" placeholder="Ej: Remera talle M, Mesa de roble...">
+              </div>
+              <div class="form-group"><label>Cantidad</label><input type="number" id="c-cantidad" min="1" value="1" oninput="calcCompra()"></div>
+              <div class="form-group"><label>Precio unitario</label><input type="number" id="c-precio" placeholder="0.00" oninput="calcCompra()"></div>
+              <div class="form-group"><label>Forma de pago</label><select id="c-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Cuenta corriente</option></select></div>
+              <div class="form-group full" style="background:var(--bg);padding:10px;border-radius:var(--rs)">
+                <span style="font-size:13px">Total: <strong id="c-total" style="color:var(--pink)">$0</strong></span>
+              </div>
+              <div class="form-group full">
+                <button class="btn btn-primary" onclick="guardarCompra()" style="width:100%;padding:11px">✓ Registrar compra</button>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Distribución de compras</div>
+            <canvas id="chartGastosCompra" height="200"></canvas>
+            <div style="margin-top:12px"><div class="chart-title" style="margin-bottom:8px">Top proveedores</div><div id="top-proveedores"></div></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div class="chart-title" style="margin:0">Historial de Compras</div>
+            <input type="text" placeholder="Buscar…" style="width:170px;padding:6px 12px;font-size:12px" oninput="filtrarCompras(this.value)">
+          </div>
+          <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Proveedor</th><th>Producto</th><th>Cant.</th><th>Precio U.</th><th>Total</th><th>Pago</th></tr></thead>
+          <tbody id="tabla-compras"></tbody></table></div>
         </div>
       </div>
-      <div style="overflow-x:auto;width:100%"><table class="data-table">
-        <thead><tr><th>Fecha</th><th>Concepto</th><th>Detalle</th><th>Pago</th><th>Cuotas</th><th>Importe</th></tr></thead>
-        <tbody id="tabla-gastos"></tbody>
-      </table>
-    </div>
-  </div>
-  </div><!-- /section-gastos -->
 
-  <!-- STOCK -->
-  <div id="section-stock" class="section">
+      <!-- GASTOS -->
+      <div id="section-gastos" class="section">
+        <!-- KPIs gastos -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px" id="gastos-kpis"></div>
 
-    <!-- Panel superior: gráficos + formulario nuevo producto -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
-      <div class="chart-card"><div class="chart-title">Más vendidos</div><canvas id="chartStockVentas" height="220"></canvas></div>
-      <div class="chart-card"><div class="chart-title">Formas de pago</div><canvas id="chartStockPagos" height="220"></canvas></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <!-- Formulario -->
+          <div class="chart-card">
+            <div class="chart-title">Registrar Gasto</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Fecha</label><input type="date" id="g-fecha"></div>
+              <div class="form-group"><label>Forma de pago</label>
+                <select id="g-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option></select>
+              </div>
+              <div class="form-group full">
+                <label>Concepto / Categoría</label>
+                <select id="g-concepto" onchange="onGastoConceptoChange()">
+                  <option value="Alquileres">🏢 Alquileres</option>
+                  <option value="Sueldos y jornales">👷 Sueldos y jornales</option>
+                  <option value="Servicios Públicos">💡 Servicios Públicos (Luz, Agua, Gas)</option>
+                  <option value="Telefonía e Internet">📡 Telefonía e Internet</option>
+                  <option value="Seguros">🛡️ Seguros</option>
+                  <option value="Publicidad">📢 Publicidad y Marketing</option>
+                  <option value="Fletes">🚚 Fletes y Transporte</option>
+                  <option value="Honorarios Profesionales">⚖️ Honorarios Profesionales</option>
+                  <option value="Mantenimiento">🔧 Mantenimiento y Reparaciones</option>
+                  <option value="Gastos Bancarios">🏦 Gastos Bancarios y Comisiones</option>
+                  <option value="Impuestos y Tasas">📄 Impuestos y Tasas</option>
+                  <option value="Limpieza">🧹 Limpieza e Higiene</option>
+                  <option value="Librería y Útiles">📎 Librería y Útiles de Oficina</option>
+                  <option value="Combustible">⛽ Combustible</option>
+                  <option value="Amortización M. y Útiles">🖥️ Amortización Muebles y Útiles</option>
+                  <option value="Amortización Instalaciones">🏗️ Amortización Instalaciones</option>
+                  <option value="Gastos Varios">📋 Gastos Varios</option>
+                  <option value="__otro__">✏️ Otro (especificar)</option>
+                </select>
+              </div>
+              <div class="form-group full" id="g-otro-row" style="display:none">
+                <label>Especificá el concepto</label>
+                <input type="text" id="g-otro-texto" placeholder="Ej: gastos de mudanza, capacitación...">
+              </div>
+              <div class="form-group full">
+                <label>Descripción / Detalle (opcional)</label>
+                <input type="text" id="g-descripcion" placeholder="Ej: Mes de marzo, factura N° 001...">
+              </div>
+              <div class="form-group"><label>Importe</label><input type="number" id="g-importe" placeholder="0.00" oninput="calcGasto()"></div>
+              <div class="form-group" id="g-cuotas-row">
+                <label>Cuotas (1 = contado)</label>
+                <input type="number" id="g-cuotas" min="1" max="60" value="1" oninput="calcGasto()">
+              </div>
+              <div class="form-group full" id="g-total-row">
+                <div style="background:var(--bg);border-radius:var(--rs);padding:11px 16px;display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:13px;color:var(--muted)">Importe a registrar</span>
+                  <span style="font-size:18px;font-weight:800;color:var(--red)" id="g-total-display">$ 0</span>
+                </div>
+              </div>
+              <div class="form-group full">
+                <button class="btn btn-primary" onclick="guardarGasto()" style="width:100%;padding:11px;background:var(--red)">✓ Registrar gasto</button>
+              </div>
+            </div>
+          </div>
 
-      <!-- Agregar / editar producto -->
-      <div class="chart-card" style="border:2px solid var(--pink);border-radius:var(--r)">
-        <div class="chart-title" style="color:var(--pink)">＋ Agregar / Editar producto</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div class="form-group">
-            <label>Nombre del producto</label>
-            <input type="text" id="sp-nombre" placeholder="Ej: Remera talle M" list="sp-datalist">
-            <datalist id="sp-datalist"></datalist>
+          <!-- Gráfico donut por categoría -->
+          <div class="chart-card" style="display:flex;flex-direction:column">
+            <div class="chart-title">Distribución por categoría</div>
+            <canvas id="chartGastosCat" style="flex:1;max-height:260px"></canvas>
+            <div id="gastos-cat-legend" style="margin-top:10px"></div>
           </div>
-          <div class="form-group">
-            <label>Cantidad inicial / ajuste</label>
-            <input type="number" id="sp-cant" min="0" value="0" placeholder="0">
+        </div>
+
+        <!-- Resumen mensual barras -->
+        <div class="chart-card" style="margin-bottom:16px">
+          <div class="chart-title">Evolución mensual de gastos</div>
+          <canvas id="chartGastosMes" height="140"></canvas>
+        </div>
+
+        <!-- Historial -->
+        <div class="chart-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div class="chart-title" style="margin:0">Historial de Gastos</div>
+            <div style="display:flex;gap:8px">
+              <select id="g-filtro-cat" style="padding:6px 10px;font-size:12px;border-radius:var(--rs);border:1px solid var(--border)" onchange="renderTablaGastos()">
+                <option value="">Todas las categorías</option>
+                <option>Alquileres</option><option>Sueldos y jornales</option>
+                <option>Servicios Públicos</option><option>Telefonía e Internet</option>
+                <option>Seguros</option><option>Publicidad</option><option>Fletes</option>
+                <option>Honorarios Profesionales</option><option>Mantenimiento</option>
+                <option>Gastos Bancarios</option><option>Impuestos y Tasas</option>
+                <option>Gastos Varios</option>
+              </select>
+              <input type="text" placeholder="Buscar…" style="width:150px;padding:6px 12px;font-size:12px" oninput="renderTablaGastos(this.value)">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Costo unitario ($)</label>
-            <input type="number" id="sp-costo" min="0" placeholder="0.00">
-          </div>
-          <div class="form-group">
-            <label style="display:flex;align-items:center;gap:6px">
-              Stock mínimo
-              <span style="font-size:10px;background:var(--amber-pale);color:#92400e;padding:2px 7px;border-radius:20px;font-weight:600">⚠️ Alerta</span>
-            </label>
-            <input type="number" id="sp-min" min="0" value="5" placeholder="5">
-          </div>
-          <div style="font-size:11px;color:var(--muted);background:var(--bg);padding:8px 10px;border-radius:var(--rs);line-height:1.5">
-            💡 Si el producto ya existe, se <strong>actualiza</strong> su mínimo y costo. Si es nuevo, se <strong>crea</strong> con la cantidad indicada.
-          </div>
-          <button class="btn btn-primary" onclick="guardarProductoStock()" style="padding:10px;width:100%">✓ Guardar producto</button>
+          <div style="overflow-x:auto;width:100%"><table class="data-table">
+            <thead><tr><th>Fecha</th><th>Concepto</th><th>Detalle</th><th>Pago</th><th>Cuotas</th><th>Importe</th></tr></thead>
+            <tbody id="tabla-gastos"></tbody>
+          </table>
         </div>
       </div>
-    </div>
+      </div><!-- /section-gastos -->
 
-    <!-- Inventario con edición de mínimo inline -->
-    <div class="chart-card" style="margin-bottom:14px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <div class="chart-title" style="margin:0">Inventario actual</div>
-        <span style="font-size:12px;color:var(--muted)">Hacé click en el mínimo de cualquier producto para editarlo</span>
+      <!-- STOCK -->
+      <div id="section-stock" class="section">
+
+        <!-- Panel superior: gráficos + formulario nuevo producto -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
+          <div class="chart-card"><div class="chart-title">Más vendidos</div><canvas id="chartStockVentas" height="220"></canvas></div>
+          <div class="chart-card"><div class="chart-title">Formas de pago</div><canvas id="chartStockPagos" height="220"></canvas></div>
+
+          <!-- Agregar / editar producto -->
+          <div class="chart-card" style="border:2px solid var(--pink);border-radius:var(--r)">
+            <div class="chart-title" style="color:var(--pink)">＋ Agregar / Editar producto</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="form-group">
+                <label>Nombre del producto</label>
+                <input type="text" id="sp-nombre" placeholder="Ej: Remera talle M" list="sp-datalist">
+                <datalist id="sp-datalist"></datalist>
+              </div>
+              <div class="form-group">
+                <label>Cantidad inicial / ajuste</label>
+                <input type="number" id="sp-cant" min="0" value="0" placeholder="0">
+              </div>
+              <div class="form-group">
+                <label>Costo unitario ($)</label>
+                <input type="number" id="sp-costo" min="0" placeholder="0.00">
+              </div>
+              <div class="form-group">
+                <label style="display:flex;align-items:center;gap:6px">
+                  Stock mínimo
+                  <span style="font-size:10px;background:var(--amber-pale);color:#92400e;padding:2px 7px;border-radius:20px;font-weight:600">⚠️ Alerta</span>
+                </label>
+                <input type="number" id="sp-min" min="0" value="5" placeholder="5">
+              </div>
+              <div style="font-size:11px;color:var(--muted);background:var(--bg);padding:8px 10px;border-radius:var(--rs);line-height:1.5">
+                💡 Si el producto ya existe, se <strong>actualiza</strong> su mínimo y costo. Si es nuevo, se <strong>crea</strong> con la cantidad indicada.
+              </div>
+              <button class="btn btn-primary" onclick="guardarProductoStock()" style="padding:10px;width:100%">✓ Guardar producto</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inventario con edición de mínimo inline -->
+        <div class="chart-card" style="margin-bottom:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div class="chart-title" style="margin:0">Inventario actual</div>
+            <span style="font-size:12px;color:var(--muted)">Hacé click en el mínimo de cualquier producto para editarlo</span>
+          </div>
+          <div class="stock-grid" id="stock-grid"></div>
+        </div>
+
+        <!-- Historial -->
+        <div class="chart-card">
+          <div class="chart-title">Historial de movimientos</div>
+          <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Referencia</th></tr></thead>
+          <tbody id="tabla-stock"></tbody></table></div>
+        </div>
       </div>
-      <div class="stock-grid" id="stock-grid"></div>
-    </div>
 
-    <!-- Historial -->
-    <div class="chart-card">
-      <div class="chart-title">Historial de movimientos</div>
-      <div style="overflow-x:auto;width:100%"><table class="data-table"><thead><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Referencia</th></tr></thead>
-      <tbody id="tabla-stock"></tbody></table></div>
-    </div>
-  </div>
-
-  <!-- PLAN DE CUENTAS -->
-  <div id="section-plan-cuentas" class="section">
-    <div class="chart-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <div class="chart-title" style="margin:0">Plan de Cuentas — ICPAM</div>
-        <button class="btn btn-primary" onclick="openModal('nueva-cuenta')">＋ Agregar cuenta</button>
+      <!-- PLAN DE CUENTAS -->
+      <div id="section-plan-cuentas" class="section">
+        <div class="chart-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div class="chart-title" style="margin:0">Plan de Cuentas — ICPAM</div>
+            <button class="btn btn-primary" onclick="openModal('nueva-cuenta')">＋ Agregar cuenta</button>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+            <button class="pill active" onclick="filterCuentas('all',this)">Todas</button>
+            <button class="pill" onclick="filterCuentas('A',this)">Activo</button>
+            <button class="pill" onclick="filterCuentas('P',this)">Pasivo</button>
+            <button class="pill" onclick="filterCuentas('N',this)">Patrimonio</button>
+            <button class="pill" onclick="filterCuentas('R',this)">Resultados</button>
+            <button class="pill" onclick="filterCuentas('M',this)">Movimiento</button>
+            <button class="pill" onclick="filterCuentas('O',this)">Orden</button>
+          </div>
+          <div id="plan-cuentas-list"></div>
+        </div>
       </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-        <button class="pill active" onclick="filterCuentas('all',this)">Todas</button>
-        <button class="pill" onclick="filterCuentas('A',this)">Activo</button>
-        <button class="pill" onclick="filterCuentas('P',this)">Pasivo</button>
-        <button class="pill" onclick="filterCuentas('N',this)">Patrimonio</button>
-        <button class="pill" onclick="filterCuentas('R',this)">Resultados</button>
-        <button class="pill" onclick="filterCuentas('M',this)">Movimiento</button>
-        <button class="pill" onclick="filterCuentas('O',this)">Orden</button>
+
+      <!-- LIBRO DIARIO -->
+      <div id="section-libro-diario" class="section">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;gap:8px">
+            <input type="month" id="ld-mes" style="padding:8px 12px;font-size:13px;border-radius:var(--rs);border:1px solid var(--border)">
+            <button class="btn btn-ghost" onclick="renderLibroDiario()">Filtrar</button>
+            <button class="btn btn-ghost" onclick="document.getElementById('ld-mes').value='';renderLibroDiario()">Ver todo</button>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('asiento-manual')">＋ Asiento manual</button>
+        </div>
+        <div id="libro-diario-list"></div>
       </div>
-      <div id="plan-cuentas-list"></div>
-    </div>
-  </div>
 
-  <!-- LIBRO DIARIO -->
-  <div id="section-libro-diario" class="section">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div style="display:flex;gap:8px">
-        <input type="month" id="ld-mes" style="padding:8px 12px;font-size:13px;border-radius:var(--rs);border:1px solid var(--border)">
-        <button class="btn btn-ghost" onclick="renderLibroDiario()">Filtrar</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('ld-mes').value='';renderLibroDiario()">Ver todo</button>
+      <!-- ESTADOS CONTABLES -->
+      <div id="section-estados" class="section">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <button class="pill active" onclick="showEstado('bss',this)">Balance S. y Saldos</button>
+          <button class="pill" onclick="showEstado('er',this)">Estado de Resultados</button>
+          <button class="pill" onclick="showEstado('esp',this)">Situación Patrimonial</button>
+          <button class="pill" onclick="showEstado('fe',this)">Flujo de Efectivo</button>
+        </div>
+        <div id="estado-bss" class="chart-card"></div>
+        <div id="estado-er" class="chart-card" style="display:none"></div>
+        <div id="estado-esp" class="chart-card" style="display:none"></div>
+        <div id="estado-fe" class="chart-card" style="display:none"></div>
       </div>
-      <button class="btn btn-primary" onclick="openModal('asiento-manual')">＋ Asiento manual</button>
-    </div>
-    <div id="libro-diario-list"></div>
-  </div>
 
-  <!-- ESTADOS CONTABLES -->
-  <div id="section-estados" class="section">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-      <button class="pill active" onclick="showEstado('bss',this)">Balance S. y Saldos</button>
-      <button class="pill" onclick="showEstado('er',this)">Estado de Resultados</button>
-      <button class="pill" onclick="showEstado('esp',this)">Situación Patrimonial</button>
-      <button class="pill" onclick="showEstado('fe',this)">Flujo de Efectivo</button>
-    </div>
-    <div id="estado-bss" class="chart-card"></div>
-    <div id="estado-er" class="chart-card" style="display:none"></div>
-    <div id="estado-esp" class="chart-card" style="display:none"></div>
-    <div id="estado-fe" class="chart-card" style="display:none"></div>
-  </div>
-
-</div><!-- /content -->
-```
-
+    </div><!-- /content -->
   </div><!-- /main -->
 </div><!-- /app -->
 
 <!-- MODALS -->
-
 <div class="modal-overlay" id="modal-quick-op">
   <div class="modal" style="width:560px">
     <div class="modal-title">Nueva operación rápida</div>
 
-```
-<!-- Tipo selector pills -->
-<div style="display:flex;gap:8px;margin-bottom:20px">
-  <button class="qop-tipo-btn active" onclick="setQopTipo('Venta',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--pink);background:var(--pink-pale);color:var(--pink);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">💰 Venta</button>
-  <button class="qop-tipo-btn" onclick="setQopTipo('Compra',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">🛒 Compra</button>
-  <button class="qop-tipo-btn" onclick="setQopTipo('Gasto',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">💸 Gasto</button>
-  <button class="qop-tipo-btn" onclick="setQopTipo('Otro',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">📝 Otro</button>
-</div>
-
-<input type="hidden" id="qop-tipo-val" value="Venta">
-
-<div class="form-grid">
-  <!-- Fecha y pago -->
-  <div class="form-group"><label>Fecha</label><input type="date" id="qop-fecha"></div>
-  <div class="form-group"><label>Forma de pago</label>
-    <select id="qop-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option><option>Cuenta corriente</option></select>
-  </div>
-
-  <!-- Concepto (solo Gasto) -->
-  <div class="form-group full" id="qop-row-concepto" style="display:none">
-    <label>Concepto / Categoría</label>
-    <select id="qop-concepto">
-      <option value="Alquileres">🏢 Alquileres</option>
-      <option value="Sueldos y jornales">👷 Sueldos y jornales</option>
-      <option value="Servicios Públicos">💡 Servicios Públicos</option>
-      <option value="Telefonía e Internet">📡 Telefonía e Internet</option>
-      <option value="Seguros">🛡️ Seguros</option>
-      <option value="Publicidad">📢 Publicidad</option>
-      <option value="Fletes">🚚 Fletes y Transporte</option>
-      <option value="Honorarios Profesionales">⚖️ Honorarios Profesionales</option>
-      <option value="Mantenimiento">🔧 Mantenimiento</option>
-      <option value="Gastos Bancarios">🏦 Gastos Bancarios</option>
-      <option value="Impuestos y Tasas">📄 Impuestos y Tasas</option>
-      <option value="Combustible">⛽ Combustible</option>
-      <option value="Gastos Varios">📋 Gastos Varios</option>
-    </select>
-  </div>
-
-  <!-- Producto: select para Venta/Compra, input para Gasto/Otro -->
-  <div class="form-group full" id="qop-row-producto">
-    <label id="qop-label-producto">Producto</label>
-    <select id="qop-producto-select" onchange="qopCalc()" style="display:block"></select>
-    <input type="text" id="qop-producto-texto" placeholder="Describí la operación (ej: alquiler local)" style="display:none;margin-top:6px">
-  </div>
-
-  <!-- Cliente / Proveedor -->
-  <div class="form-group full" id="qop-row-contraparte">
-    <label id="qop-label-contraparte">Cliente</label>
-    <input type="text" id="qop-contraparte" placeholder="Nombre del cliente">
-  </div>
-
-  <!-- Cantidad y precio unitario -->
-  <div class="form-group" id="qop-row-cant">
-    <label>Cantidad</label>
-    <input type="number" id="qop-cantidad" min="1" value="1" oninput="qopCalc()">
-  </div>
-  <div class="form-group" id="qop-row-precio">
-    <label>Precio unitario</label>
-    <input type="number" id="qop-precio" placeholder="0.00" oninput="qopCalc()">
-  </div>
-
-  <!-- Total en vivo -->
-  <div class="form-group full">
-    <div style="background:var(--bg);border-radius:var(--rs);padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
-      <span style="font-size:13px;color:var(--muted)">Precio unitario × Cantidad</span>
-      <span style="font-size:18px;font-weight:800;color:var(--pink)" id="qop-total-display">$ 0</span>
+    <!-- Tipo selector pills -->
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button class="qop-tipo-btn active" onclick="setQopTipo('Venta',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--pink);background:var(--pink-pale);color:var(--pink);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">💰 Venta</button>
+      <button class="qop-tipo-btn" onclick="setQopTipo('Compra',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">🛒 Compra</button>
+      <button class="qop-tipo-btn" onclick="setQopTipo('Gasto',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">💸 Gasto</button>
+      <button class="qop-tipo-btn" onclick="setQopTipo('Otro',this)" style="flex:1;padding:10px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">📝 Otro</button>
     </div>
-  </div>
 
-  <!-- Stock disponible badge (solo Venta) -->
-  <div class="form-group full" id="qop-stock-info" style="display:none">
-    <div style="background:var(--green-pale);border:1px solid #a7f3d0;border-radius:var(--rs);padding:8px 14px;font-size:12px;color:#065f46" id="qop-stock-txt"></div>
-  </div>
-</div>
+    <input type="hidden" id="qop-tipo-val" value="Venta">
 
-<div class="modal-actions">
-  <button class="btn btn-ghost" onclick="closeModal('quick-op')">Cancelar</button>
-  <button class="btn btn-primary" onclick="guardarOperacionRapida()" style="min-width:180px">✓ Guardar y generar asiento</button>
-</div>
-```
+    <div class="form-grid">
+      <!-- Fecha y pago -->
+      <div class="form-group"><label>Fecha</label><input type="date" id="qop-fecha"></div>
+      <div class="form-group"><label>Forma de pago</label>
+        <select id="qop-pago"><option>Efectivo</option><option>Transferencia</option><option>Cheque</option><option>Tarjeta</option><option>Cuenta corriente</option></select>
+      </div>
 
+      <!-- Concepto (solo Gasto) -->
+      <div class="form-group full" id="qop-row-concepto" style="display:none">
+        <label>Concepto / Categoría</label>
+        <select id="qop-concepto">
+          <option value="Alquileres">🏢 Alquileres</option>
+          <option value="Sueldos y jornales">👷 Sueldos y jornales</option>
+          <option value="Servicios Públicos">💡 Servicios Públicos</option>
+          <option value="Telefonía e Internet">📡 Telefonía e Internet</option>
+          <option value="Seguros">🛡️ Seguros</option>
+          <option value="Publicidad">📢 Publicidad</option>
+          <option value="Fletes">🚚 Fletes y Transporte</option>
+          <option value="Honorarios Profesionales">⚖️ Honorarios Profesionales</option>
+          <option value="Mantenimiento">🔧 Mantenimiento</option>
+          <option value="Gastos Bancarios">🏦 Gastos Bancarios</option>
+          <option value="Impuestos y Tasas">📄 Impuestos y Tasas</option>
+          <option value="Combustible">⛽ Combustible</option>
+          <option value="Gastos Varios">📋 Gastos Varios</option>
+        </select>
+      </div>
+
+      <!-- Producto: select para Venta/Compra, input para Gasto/Otro -->
+      <div class="form-group full" id="qop-row-producto">
+        <label id="qop-label-producto">Producto</label>
+        <select id="qop-producto-select" onchange="qopCalc()" style="display:block"></select>
+        <input type="text" id="qop-producto-texto" placeholder="Describí la operación (ej: alquiler local)" style="display:none;margin-top:6px">
+      </div>
+
+      <!-- Cliente / Proveedor -->
+      <div class="form-group full" id="qop-row-contraparte">
+        <label id="qop-label-contraparte">Cliente</label>
+        <input type="text" id="qop-contraparte" placeholder="Nombre del cliente">
+      </div>
+
+      <!-- Cantidad y precio unitario -->
+      <div class="form-group" id="qop-row-cant">
+        <label>Cantidad</label>
+        <input type="number" id="qop-cantidad" min="1" value="1" oninput="qopCalc()">
+      </div>
+      <div class="form-group" id="qop-row-precio">
+        <label>Precio unitario</label>
+        <input type="number" id="qop-precio" placeholder="0.00" oninput="qopCalc()">
+      </div>
+
+      <!-- Total en vivo -->
+      <div class="form-group full">
+        <div style="background:var(--bg);border-radius:var(--rs);padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:13px;color:var(--muted)">Precio unitario × Cantidad</span>
+          <span style="font-size:18px;font-weight:800;color:var(--pink)" id="qop-total-display">$ 0</span>
+        </div>
+      </div>
+
+      <!-- Stock disponible badge (solo Venta) -->
+      <div class="form-group full" id="qop-stock-info" style="display:none">
+        <div style="background:var(--green-pale);border:1px solid #a7f3d0;border-radius:var(--rs);padding:8px 14px;font-size:12px;color:#065f46" id="qop-stock-txt"></div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('quick-op')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarOperacionRapida()" style="min-width:180px">✓ Guardar y generar asiento</button>
+    </div>
   </div>
 </div>
 
@@ -1133,97 +1114,47 @@ padding:18px!important;
 </div>
 
 <!-- Export Options Modal -->
-
 <div class="modal-overlay" id="modal-export-options">
   <div class="modal" style="width:520px">
     <div class="modal-title">⬇ Exportar datos</div>
     <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Seleccioná qué querés exportar. Los PDF se abren en nueva ventana listos para imprimir con el encabezado de tu empresa.</p>
 
-```
-<div style="margin-bottom:16px">
-  <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📊 Estados Contables (PDF formal)</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-    <button class="btn btn-ghost" onclick="exportPDF('bss')" style="justify-content:flex-start;gap:8px">📋 Balance de Sumas y Saldos</button>
-    <button class="btn btn-ghost" onclick="exportPDF('er')" style="justify-content:flex-start;gap:8px">📈 Estado de Resultados</button>
-    <button class="btn btn-ghost" onclick="exportPDF('esp')" style="justify-content:flex-start;gap:8px">🏛️ Situación Patrimonial</button>
-    <button class="btn btn-ghost" onclick="exportPDF('fe')" style="justify-content:flex-start;gap:8px">💧 Flujo de Efectivo</button>
-  </div>
-</div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📊 Estados Contables (PDF formal)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn btn-ghost" onclick="exportPDF('bss')" style="justify-content:flex-start;gap:8px">📋 Balance de Sumas y Saldos</button>
+        <button class="btn btn-ghost" onclick="exportPDF('er')" style="justify-content:flex-start;gap:8px">📈 Estado de Resultados</button>
+        <button class="btn btn-ghost" onclick="exportPDF('esp')" style="justify-content:flex-start;gap:8px">🏛️ Situación Patrimonial</button>
+        <button class="btn btn-ghost" onclick="exportPDF('fe')" style="justify-content:flex-start;gap:8px">💧 Flujo de Efectivo</button>
+      </div>
+    </div>
 
-<div style="margin-bottom:16px">
-  <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📒 Registros (PDF)</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-    <button class="btn btn-ghost" onclick="exportPDF('ld')" style="justify-content:flex-start;gap:8px">📒 Libro Diario completo</button>
-    <button class="btn btn-ghost" onclick="exportPDF('ventas')" style="justify-content:flex-start;gap:8px">💰 Registro de Ventas</button>
-    <button class="btn btn-ghost" onclick="exportPDF('compras')" style="justify-content:flex-start;gap:8px">🛒 Registro de Compras</button>
-    <button class="btn btn-ghost" onclick="exportPDF('gastos')" style="justify-content:flex-start;gap:8px">💸 Registro de Gastos</button>
-    <button class="btn btn-ghost" onclick="exportPDF('stock')" style="justify-content:flex-start;gap:8px">📦 Inventario actual</button>
-  </div>
-</div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📒 Registros (PDF)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn btn-ghost" onclick="exportPDF('ld')" style="justify-content:flex-start;gap:8px">📒 Libro Diario completo</button>
+        <button class="btn btn-ghost" onclick="exportPDF('ventas')" style="justify-content:flex-start;gap:8px">💰 Registro de Ventas</button>
+        <button class="btn btn-ghost" onclick="exportPDF('compras')" style="justify-content:flex-start;gap:8px">🛒 Registro de Compras</button>
+        <button class="btn btn-ghost" onclick="exportPDF('gastos')" style="justify-content:flex-start;gap:8px">💸 Registro de Gastos</button>
+        <button class="btn btn-ghost" onclick="exportPDF('stock')" style="justify-content:flex-start;gap:8px">📦 Inventario actual</button>
+      </div>
+    </div>
 
-<div style="border-top:1px solid var(--border);padding-top:14px">
-  <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">💾 Backup completo</div>
-  <button class="btn btn-ghost" onclick="exportJSON()" style="gap:8px">📥 Exportar todo en JSON (backup)</button>
-</div>
+    <div style="border-top:1px solid var(--border);padding-top:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">💾 Backup completo</div>
+      <button class="btn btn-ghost" onclick="exportJSON()" style="gap:8px">📥 Exportar todo en JSON (backup)</button>
+    </div>
 
-<div class="modal-actions">
-  <button class="btn btn-ghost" onclick="closeModal('export-options')">Cerrar</button>
-</div>
-```
-
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('export-options')">Cerrar</button>
+    </div>
   </div>
 </div>
 
 <!-- Toast -->
-
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-<!-- ══ FIREBASE SDK ══ -->
-
-<script type="module">
-import { initializeApp }                                  from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword,
-         signInWithEmailAndPassword, signOut,
-         updateProfile }                                  from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc,
-         updateDoc, deleteDoc, collection,
-         query, where, getDocs, orderBy }                 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey:            "AIzaSyBow5BTu1DeD246ufnhDf_TsVnjh1fRn5I",
-  authDomain:        "pig-finanzas-personales.firebaseapp.com",
-  projectId:         "pig-finanzas-personales",
-  storageBucket:     "pig-finanzas-personales.firebasestorage.app",
-  messagingSenderId: "939856328300",
-  appId:             "1:939856328300:web:fd8d15211c8961ecdf4a49",
-  measurementId:     "G-BNZXR7HTTD"
-};
-
-const _fbApp  = initializeApp(firebaseConfig);
-const _fbAuth = getAuth(_fbApp);
-const _fbFdb  = getFirestore(_fbApp);
-
-// Exponer al scope global para el código inline
-window._fbAuth          = _fbAuth;
-window._fbFdb           = _fbFdb;
-window._fbCreateUser    = createUserWithEmailAndPassword;
-window._fbSignIn        = signInWithEmailAndPassword;
-window._fbSignOut       = signOut;
-window._fbUpdateProfile = updateProfile;
-window._fbDoc           = doc;
-window._fbGetDoc        = getDoc;
-window._fbSetDoc        = setDoc;
-window._fbUpdateDoc     = updateDoc;
-window._fbDeleteDoc     = deleteDoc;
-window._fbCollection    = collection;
-window._fbQuery         = query;
-window._fbWhere         = where;
-window._fbGetDocs       = getDocs;
-window._fbOrderBy       = orderBy;
-</script>
-
 <script>
 /* ============================================================
    INTRO ANIMATION
@@ -1296,46 +1227,42 @@ let authMode='login'; // 'login' | 'register'
 let currentUser=null;
 
 /* ============================================================
-   FIREBASE — HELPERS FIRESTORE
+   NETLIFY / LOCALSTORAGE CONFIG
+   Los datos se guardan en el navegador del usuario.
+   El panel de admin (admin.html) comparte el mismo localStorage
+   al estar en el mismo dominio de Netlify.
 ============================================================ */
 
-async function fbGetUserDoc(uid){
-  var snap=await window._fbGetDoc(window._fbDoc(window._fbFdb,'usuarios',uid));
-  return snap.exists()?Object.assign({id:uid},snap.data()):null;
+function lsGetUser(username){
+  var users=JSON.parse(localStorage.getItem('pig_users')||'[]');
+  return users.find(function(u){return u.username===username;})||null;
 }
 
-async function fbGetUserByUsername(username){
-  var q=window._fbQuery(window._fbCollection(window._fbFdb,'usuarios'),window._fbWhere('username','==',username));
-  var snap=await window._fbGetDocs(q);
-  if(snap.empty) return null;
-  var d=snap.docs[0]; return Object.assign({id:d.id},d.data());
+function lsCreateUser(username,passHash,empresa,email){
+  var users=JSON.parse(localStorage.getItem('pig_users')||'[]');
+  var newUser={
+    id:Date.now().toString(),
+    username:username,
+    pass_hash:passHash,
+    empresa:empresa,
+    email:email||null,
+    activo:true,
+    plan:'mensual',
+    fecha_registro:new Date().toISOString()
+  };
+  users.push(newUser);
+  localStorage.setItem('pig_users',JSON.stringify(users));
+  return newUser;
 }
 
-async function fbCreateUserDoc(uid,username,empresa,email){
-  await window._fbSetDoc(window._fbDoc(window._fbFdb,'usuarios',uid),{
-    username,empresa,email:email||null,activo:true,
-    plan:'mensual',fecha_registro:new Date().toISOString(),
-    last_seen:new Date().toISOString()
-  });
+function lsLoadData(username){
+  var raw=localStorage.getItem('pig_data_'+username);
+  if(!raw) return null;
+  try{return JSON.parse(raw);}catch(e){return null;}
 }
 
-async function fbLoadData(uid){
-  var snap=await window._fbGetDoc(window._fbDoc(window._fbFdb,'datos_empresa',uid));
-  return snap.exists()?snap.data().valor:null;
-}
-
-async function fbSaveData(uid,valor){
-  await window._fbSetDoc(
-    window._fbDoc(window._fbFdb,'datos_empresa',uid),
-    {usuario_id:uid,valor,updated_at:new Date().toISOString()},
-    {merge:true}
-  );
-}
-
-async function fbUpdateLastSeen(uid){
-  try{
-    await window._fbUpdateDoc(window._fbDoc(window._fbFdb,'usuarios',uid),{last_seen:new Date().toISOString()});
-  }catch(e){}
+function lsSaveData(username,data){
+  localStorage.setItem('pig_data_'+username,JSON.stringify(data));
 }
 
 function toggleAuthMode(){
@@ -1357,58 +1284,41 @@ async function doAuth(){
   var email=document.getElementById('inp-email')?document.getElementById('inp-email').value.trim():'';
   var err=document.getElementById('auth-error');
   var btn=document.getElementById('auth-btn');
-  if(!user||!pass){err.textContent='Completá usuario y contraseña';return;}
+  if(!user||!pass){err.textContent='Completá usuario y contraseña';return}
 
   btn.textContent=authMode==='register'?'Creando cuenta…':'Conectando...';
   btn.disabled=true;
   err.textContent='';
   err.style.color='';
 
-  var fakeEmail=user.replace(/\s+/g,'_')+'@pigfinanzas.app';
-
   try{
     if(authMode==='register'){
       var empresa=document.getElementById('inp-empresa').value.trim()||user+' Empresa';
-      var cred=await window._fbCreateUser(window._fbAuth,fakeEmail,pass);
-      await window._fbUpdateProfile(cred.user,{displayName:JSON.stringify({username:user,empresa})});
-      await fbCreateUserDoc(cred.user.uid,user,empresa,email||null);
+      var existing=lsGetUser(user);
+      if(existing){err.textContent='Ese usuario ya existe';btn.textContent='Solicitar cuenta';btn.disabled=false;return}
+      var newUser=lsCreateUser(user,btoa(pass),empresa,email);
       var newDB=defaultDB();
-      await fbSaveData(cred.user.uid,newDB);
-      fbUpdateLastSeen(cred.user.uid);
+      lsSaveData(user,newDB);
       toast('✓ ¡Bienvenido '+user+'! Cuenta creada correctamente.','success');
-      doLogin(user,{id:cred.user.uid,username:user,empresa,email:email||null,activo:true,plan:'mensual'},newDB);
+      doLogin(user,newUser,newDB);
+      return;
     } else {
-      var cred2=await window._fbSignIn(window._fbAuth,fakeEmail,pass);
-      var uid=cred2.user.uid;
-      var userData=await fbGetUserDoc(uid);
-      if(!userData){
-        // Compatibilidad: buscar por username
-        userData=await fbGetUserByUsername(user);
-      }
-      if(!userData){
-        // Primer login sin doc — crear doc básico
-        await fbCreateUserDoc(uid,user,user+' Empresa',email||null);
-        userData={id:uid,username:user,empresa:user+' Empresa',activo:true,plan:'mensual'};
-      }
-      if(!userData.activo){
-        err.textContent='Tu cuenta está desactivada. Contactá al administrador.';
-        btn.textContent='Iniciar sesión';btn.disabled=false;return;
-      }
+      var userData=lsGetUser(user);
+      if(!userData){err.textContent='Usuario no encontrado';btn.textContent='Iniciar sesión';btn.disabled=false;return}
+      if(userData.pass_hash!==btoa(pass)){err.textContent='Contraseña incorrecta';btn.textContent='Iniciar sesión';btn.disabled=false;return}
+      // Check activo
+      if(userData.activo===false){err.textContent='Tu cuenta está desactivada. Contactá al administrador.';btn.textContent='Iniciar sesión';btn.disabled=false;return}
+      // Check vencimiento
       if(userData.fecha_vencimiento&&new Date(userData.fecha_vencimiento)<new Date()){
         err.textContent='Tu suscripción venció el '+new Date(userData.fecha_vencimiento).toLocaleDateString('es-AR')+'. Contactá al administrador.';
         btn.textContent='Iniciar sesión';btn.disabled=false;return;
       }
-      var savedDB=await fbLoadData(uid);
+      var savedDB=lsLoadData(user);
       var userDB=savedDB||defaultDB();
-      fbUpdateLastSeen(uid);
       doLogin(user,userData,userDB);
     }
   }catch(e){
-    var msg=e.code==='auth/email-already-in-use'?'Ese usuario ya existe'
-           :e.code==='auth/wrong-password'||e.code==='auth/invalid-credential'?'Contraseña incorrecta'
-           :e.code==='auth/user-not-found'?'Usuario no encontrado'
-           :'Error de conexión: '+e.message;
-    err.textContent=msg;
+    err.textContent='Error: '+e.message;
     btn.textContent=authMode==='register'?'Solicitar cuenta':'Iniciar sesión';
     btn.disabled=false;
   }
@@ -1435,7 +1345,6 @@ async function logout(){
   await saveDB();
   currentUser=null;
   currentUserData=null;
-  await window._fbSignOut(window._fbAuth).catch(function(){});
   document.getElementById('app').classList.remove('active');
   document.getElementById('login-screen').classList.add('active');
   document.getElementById('inp-pass').value='';
@@ -1446,9 +1355,9 @@ async function logout(){
 }
 
 async function saveCurrentUser(){
-  if(!currentUser||!currentUserData) return;
+  if(!currentUser) return;
   try{
-    await fbSaveData(currentUserData.id,DB);
+    lsSaveData(currentUser,DB);
   }catch(e){
     console.warn('Save failed:',e.message);
   }
@@ -3023,177 +2932,172 @@ function exportPDF(tipo){
       'td,th{border:1px solid #e2e8f0}'+
       'tr:nth-child(even){background:#f8fafc}'+
     '</style>'+
-
-```
-'</head><body><div class="page">'+
-// Header
-'<div style="border-bottom:3px solid #e84393;padding-bottom:20px;margin-bottom:24px">'+
-  '<div style="display:flex;align-items:flex-start;justify-content:space-between">'+
-    '<div>'+
-      '<div style="font-size:22px;font-weight:800;color:#0a1628">🐷 PIG FINANZAS</div>'+
-      '<div style="font-size:16px;font-weight:700;color:#1e293b;margin-top:4px">'+empresa+'</div>'+
-      '<div style="font-size:13px;color:#64748b;margin-top:2px">Sistema de Gestión Empresarial</div>'+
+    '</head><body><div class="page">'+
+    // Header
+    '<div style="border-bottom:3px solid #e84393;padding-bottom:20px;margin-bottom:24px">'+
+      '<div style="display:flex;align-items:flex-start;justify-content:space-between">'+
+        '<div>'+
+          '<div style="font-size:22px;font-weight:800;color:#0a1628">🐷 PIG FINANZAS</div>'+
+          '<div style="font-size:16px;font-weight:700;color:#1e293b;margin-top:4px">'+empresa+'</div>'+
+          '<div style="font-size:13px;color:#64748b;margin-top:2px">Sistema de Gestión Empresarial</div>'+
+        '</div>'+
+        '<div style="text-align:right">'+
+          '<div style="font-size:18px;font-weight:800;color:#e84393">'+titulo+'</div>'+
+          '<div style="font-size:12px;color:#64748b;margin-top:4px">'+norma+'</div>'+
+          '<div style="font-size:12px;color:#64748b;margin-top:2px">Emitido: '+fechaHoy+'</div>'+
+        '</div>'+
+      '</div>'+
     '</div>'+
-    '<div style="text-align:right">'+
-      '<div style="font-size:18px;font-weight:800;color:#e84393">'+titulo+'</div>'+
-      '<div style="font-size:12px;color:#64748b;margin-top:4px">'+norma+'</div>'+
-      '<div style="font-size:12px;color:#64748b;margin-top:2px">Emitido: '+fechaHoy+'</div>'+
+    // Body
+    bodyContent+
+    // Footer
+    '<div style="margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8">'+
+      '<span>'+empresa+' — PIG FINANZAS by Mateo</span>'+
+      '<span>Emitido el '+fechaHoy+'</span>'+
+      '<span>Página 1</span>'+
     '</div>'+
-  '</div>'+
-'</div>'+
-// Body
-bodyContent+
-// Footer
-'<div style="margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:11px;color:#94a3b8">'+
-  '<span>'+empresa+' — PIG FINANZAS by Mateo</span>'+
-  '<span>Emitido el '+fechaHoy+'</span>'+
-  '<span>Página 1</span>'+
-'</div>'+
-// Auto print
-'<script>window.onload=function(){window.print();}<\/script>'+
-'</div></body></html>';
-```
+    // Auto print
+    '<script>window.onload=function(){window.print();}<\/script>'+
+    '</div></body></html>';
 
-var w=window.open(’’,’_blank’);
-if(w){
-w.document.write(html);
-w.document.close();
-} else {
-toast(‘Permitir ventanas emergentes para exportar PDF’,‘error’);
-}
-closeModal(‘export-options’);
+  var w=window.open('','_blank');
+  if(w){
+    w.document.write(html);
+    w.document.close();
+  } else {
+    toast('Permitir ventanas emergentes para exportar PDF','error');
+  }
+  closeModal('export-options');
 }
 
 /* ============================================================
-HISTORIAL PEPS POR PRODUCTO
+   HISTORIAL PEPS POR PRODUCTO
 ============================================================ */
 function verHistorialProducto(nombre){
-var info=DB.stock[nombre];
-if(!info){toast(‘Producto no encontrado’,‘error’);return;}
-var lotes=info.lotes||[];
-var movs=DB.movStock.filter(function(m){return m.producto===nombre;});
-var valorPEPS=lotes.reduce(function(acc,l){return acc+(l.cantRestante*(l.costoUnit||0));},0);
-var estado=info.cant===0
-?’<span style="color:var(--red);font-weight:700">🔴 SIN STOCK</span>’
-:info.cant<=info.min
-?’<span style="color:var(--amber);font-weight:700">🟡 BAJO STOCK</span>’
-:’<span style="color:var(--green);font-weight:700">🟢 OK</span>’;
+  var info=DB.stock[nombre];
+  if(!info){toast('Producto no encontrado','error');return;}
+  var lotes=info.lotes||[];
+  var movs=DB.movStock.filter(function(m){return m.producto===nombre;});
+  var valorPEPS=lotes.reduce(function(acc,l){return acc+(l.cantRestante*(l.costoUnit||0));},0);
+  var estado=info.cant===0
+    ?'<span style="color:var(--red);font-weight:700">🔴 SIN STOCK</span>'
+    :info.cant<=info.min
+      ?'<span style="color:var(--amber);font-weight:700">🟡 BAJO STOCK</span>'
+      :'<span style="color:var(--green);font-weight:700">🟢 OK</span>';
 
-var lotesHtml=lotes.length===0
-?’<tr><td colspan="5" style="padding:14px;text-align:center;color:var(--muted)">Sin lotes registrados aún</td></tr>’
-:lotes.slice().reverse().map(function(l){
-var agotado=l.cantRestante===0;
-return ‘<tr style="background:'+(agotado?'#f8fafc':'')+'">’+
-‘<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">’+formatFecha(l.fecha)+’</td>’+
-‘<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">’+( l.proveedor||’—’)+’</td>’+
-‘<td style="padding:7px 10px;text-align:right;color:'+(agotado?'#94a3b8':'')+'">’+l.cantidad+’</td>’+
-‘<td style="padding:7px 10px;text-align:right;font-weight:700;color:'+(agotado?'#94a3b8':'var(--blue)')+'">’+fmoney(l.costoUnit)+’</td>’+
-‘<td style="padding:7px 10px;text-align:right">’+
-(agotado
-?’<span style="font-size:11px;background:#f1f5f9;padding:2px 8px;border-radius:20px;color:#94a3b8">Agotado</span>’
-:’<span style="font-size:12px;font-weight:700;color:var(--green)">’+l.cantRestante+’ u.</span>’)+
-‘</td>’+
-‘</tr>’;
-}).join(’’);
+  var lotesHtml=lotes.length===0
+    ?'<tr><td colspan="5" style="padding:14px;text-align:center;color:var(--muted)">Sin lotes registrados aún</td></tr>'
+    :lotes.slice().reverse().map(function(l){
+      var agotado=l.cantRestante===0;
+      return '<tr style="background:'+(agotado?'#f8fafc':'')+'">'+
+        '<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">'+formatFecha(l.fecha)+'</td>'+
+        '<td style="padding:7px 10px;color:'+(agotado?'#94a3b8':'')+'">'+( l.proveedor||'—')+'</td>'+
+        '<td style="padding:7px 10px;text-align:right;color:'+(agotado?'#94a3b8':'')+'">'+l.cantidad+'</td>'+
+        '<td style="padding:7px 10px;text-align:right;font-weight:700;color:'+(agotado?'#94a3b8':'var(--blue)')+'">'+fmoney(l.costoUnit)+'</td>'+
+        '<td style="padding:7px 10px;text-align:right">'+
+          (agotado
+            ?'<span style="font-size:11px;background:#f1f5f9;padding:2px 8px;border-radius:20px;color:#94a3b8">Agotado</span>'
+            :'<span style="font-size:12px;font-weight:700;color:var(--green)">'+l.cantRestante+' u.</span>')+
+        '</td>'+
+      '</tr>';
+    }).join('');
 
-var movsHtml=movs.length===0
-?’<tr><td colspan="4" style="padding:14px;text-align:center;color:var(--muted)">Sin movimientos</td></tr>’
-:movs.slice().reverse().slice(0,12).map(function(m){
-return ‘<tr>’+
-‘<td style="padding:6px 10px">’+formatFecha(m.fecha)+’</td>’+
-‘<td style="padding:6px 10px"><span class="tag '+(m.tipo==='Entrada'?'tag-green':'tag-red')+'">’+m.tipo+’</span></td>’+
-‘<td style="padding:6px 10px;font-weight:600;color:'+(m.tipo==='Entrada'?'var(--green)':'var(--red)')+'">’+
-(m.tipo===‘Entrada’?’+’:’-’)+m.cantidad+
-‘</td>’+
-‘<td style="padding:6px 10px;color:var(--muted)">’+m.ref+’</td>’+
-‘</tr>’;
-}).join(’’);
+  var movsHtml=movs.length===0
+    ?'<tr><td colspan="4" style="padding:14px;text-align:center;color:var(--muted)">Sin movimientos</td></tr>'
+    :movs.slice().reverse().slice(0,12).map(function(m){
+      return '<tr>'+
+        '<td style="padding:6px 10px">'+formatFecha(m.fecha)+'</td>'+
+        '<td style="padding:6px 10px"><span class="tag '+(m.tipo==='Entrada'?'tag-green':'tag-red')+'">'+m.tipo+'</span></td>'+
+        '<td style="padding:6px 10px;font-weight:600;color:'+(m.tipo==='Entrada'?'var(--green)':'var(--red)')+'">'+
+          (m.tipo==='Entrada'?'+':'-')+m.cantidad+
+        '</td>'+
+        '<td style="padding:6px 10px;color:var(--muted)">'+m.ref+'</td>'+
+      '</tr>';
+    }).join('');
 
-// Costos únicos de adquisición
-var costosUnicos={};
-lotes.forEach(function(l){
-var k=fmoney(l.costoUnit);
-if(!costosUnicos[k]) costosUnicos[k]={costo:l.costoUnit,lotes:0,unidades:0,disponibles:0};
-costosUnicos[k].lotes++;
-costosUnicos[k].unidades+=l.cantidad;
-costosUnicos[k].disponibles+=l.cantRestante;
-});
-var costosHtml=Object.values(costosUnicos).sort(function(a,b){return a.costo-b.costo;}).map(function(c){
-return ‘<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">’+
-‘<div style="flex:1;font-size:13px;font-weight:600;color:var(--blue)">’+fmoney(c.costo)+’ / u.</div>’+
-‘<div style="font-size:12px;color:var(--muted)">’+c.lotes+’ lote’+(c.lotes>1?‘s’:’’)+’ · ‘+c.unidades+’ u. compradas</div>’+
-‘<div style="font-size:12px;font-weight:700;color:'+(c.disponibles>0?'var(--green)':'#94a3b8')+'">’+
-(c.disponibles>0?c.disponibles+’ disponibles’:‘Agotado’)+
-‘</div>’+
-‘</div>’;
-}).join(’’);
+  // Costos únicos de adquisición
+  var costosUnicos={};
+  lotes.forEach(function(l){
+    var k=fmoney(l.costoUnit);
+    if(!costosUnicos[k]) costosUnicos[k]={costo:l.costoUnit,lotes:0,unidades:0,disponibles:0};
+    costosUnicos[k].lotes++;
+    costosUnicos[k].unidades+=l.cantidad;
+    costosUnicos[k].disponibles+=l.cantRestante;
+  });
+  var costosHtml=Object.values(costosUnicos).sort(function(a,b){return a.costo-b.costo;}).map(function(c){
+    return '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">'+
+      '<div style="flex:1;font-size:13px;font-weight:600;color:var(--blue)">'+fmoney(c.costo)+' / u.</div>'+
+      '<div style="font-size:12px;color:var(--muted)">'+c.lotes+' lote'+(c.lotes>1?'s':'')+' · '+c.unidades+' u. compradas</div>'+
+      '<div style="font-size:12px;font-weight:700;color:'+(c.disponibles>0?'var(--green)':'#94a3b8')+'">'+
+        (c.disponibles>0?c.disponibles+' disponibles':'Agotado')+
+      '</div>'+
+    '</div>';
+  }).join('');
 
-var html=
-‘<div style="margin-bottom:20px">’+
-‘<div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px">📦 ‘+nombre+’</div>’+
-‘<div style="font-size:13px;color:var(--muted)">Historial completo · Valuación: <strong style="color:var(--pink)">PEPS — Primero Entrado, Primero Salido</strong></div>’+
-‘</div>’+
-‘<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">’+
-‘<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">’+
-‘<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Stock actual</div>’+
-‘<div style="font-size:24px;font-weight:800">’+info.cant+’</div>’+
-‘<div style="margin-top:3px">’+estado+’</div>’+
-‘</div>’+
-‘<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">’+
-‘<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Costo 1er lote (PEPS)</div>’+
-‘<div style="font-size:18px;font-weight:800;color:var(--blue)">’+fmoney(info.costo)+’</div>’+
-‘<div style="font-size:10px;color:var(--muted);margin-top:2px">próximo a usar</div>’+
-‘</div>’+
-‘<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">’+
-‘<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Valor en stock</div>’+
-‘<div style="font-size:18px;font-weight:800;color:var(--green)">’+fmoney(valorPEPS)+’</div>’+
-‘<div style="font-size:10px;color:var(--muted);margin-top:2px">valuación PEPS</div>’+
-‘</div>’+
-‘</div>’+
-‘<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">💲 Costos de adquisición registrados</div>’+
-‘<div style="margin-bottom:18px">’+costosHtml+’</div>’+
-‘<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)">🏷️ Lotes de compra (PEPS — orden de consumo)</div>’+
-‘<div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--blue-pale);padding:8px 12px;border-radius:var(--rs)">’+
-‘📌 Al registrar una venta, se descontarán primero las unidades del lote más antiguo con stock disponible.’+
-‘</div>’+
-‘<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">’+
-‘<thead><tr style="background:var(--bg)">’+
-‘<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha ingreso</th>’+
-‘<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Proveedor</th>’+
-‘<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Cant.</th>’+
-‘<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Costo unit.</th>’+
-‘<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Disponible</th>’+
-‘</tr></thead>’+
-‘<tbody>’+lotesHtml+’</tbody>’+
-‘</table>’+
-‘<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">📋 Últimos movimientos</div>’+
-‘<table style="width:100%;border-collapse:collapse;font-size:12px">’+
-‘<thead><tr style="background:var(--bg)">’+
-‘<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha</th>’+
-‘<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Tipo</th>’+
-‘<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Cantidad</th>’+
-‘<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Referencia</th>’+
-‘</tr></thead>’+
-‘<tbody>’+movsHtml+’</tbody>’+
-‘</table>’;
+  var html=
+    '<div style="margin-bottom:20px">'+
+      '<div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px">📦 '+nombre+'</div>'+
+      '<div style="font-size:13px;color:var(--muted)">Historial completo · Valuación: <strong style="color:var(--pink)">PEPS — Primero Entrado, Primero Salido</strong></div>'+
+    '</div>'+
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Stock actual</div>'+
+        '<div style="font-size:24px;font-weight:800">'+info.cant+'</div>'+
+        '<div style="margin-top:3px">'+estado+'</div>'+
+      '</div>'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Costo 1er lote (PEPS)</div>'+
+        '<div style="font-size:18px;font-weight:800;color:var(--blue)">'+fmoney(info.costo)+'</div>'+
+        '<div style="font-size:10px;color:var(--muted);margin-top:2px">próximo a usar</div>'+
+      '</div>'+
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:2px">Valor en stock</div>'+
+        '<div style="font-size:18px;font-weight:800;color:var(--green)">'+fmoney(valorPEPS)+'</div>'+
+        '<div style="font-size:10px;color:var(--muted);margin-top:2px">valuación PEPS</div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">💲 Costos de adquisición registrados</div>'+
+    '<div style="margin-bottom:18px">'+costosHtml+'</div>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)">🏷️ Lotes de compra (PEPS — orden de consumo)</div>'+
+    '<div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--blue-pale);padding:8px 12px;border-radius:var(--rs)">'+
+      '📌 Al registrar una venta, se descontarán primero las unidades del lote más antiguo con stock disponible.'+
+    '</div>'+
+    '<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">'+
+      '<thead><tr style="background:var(--bg)">'+
+        '<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha ingreso</th>'+
+        '<th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Proveedor</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Cant.</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Costo unit.</th>'+
+        '<th style="padding:7px 10px;text-align:right;font-size:11px;color:var(--muted);font-weight:600">Disponible</th>'+
+      '</tr></thead>'+
+      '<tbody>'+lotesHtml+'</tbody>'+
+    '</table>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)">📋 Últimos movimientos</div>'+
+    '<table style="width:100%;border-collapse:collapse;font-size:12px">'+
+      '<thead><tr style="background:var(--bg)">'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Fecha</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Tipo</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Cantidad</th>'+
+        '<th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--muted);font-weight:600">Referencia</th>'+
+      '</tr></thead>'+
+      '<tbody>'+movsHtml+'</tbody>'+
+    '</table>';
 
-document.getElementById(‘modal-historial-content’).innerHTML=html;
-var modal=document.getElementById(‘modal-historial-producto’);
-modal.style.display=‘flex’;
+  document.getElementById('modal-historial-content').innerHTML=html;
+  var modal=document.getElementById('modal-historial-producto');
+  modal.style.display='flex';
 }
 
 function cerrarHistorialProducto(){
-document.getElementById(‘modal-historial-producto’).style.display=‘none’;
+  document.getElementById('modal-historial-producto').style.display='none';
 }
 
-document.addEventListener(‘click’,function(e){
-var modal=document.getElementById(‘modal-historial-producto’);
-if(modal && e.target===modal) cerrarHistorialProducto();
+document.addEventListener('click',function(e){
+  var modal=document.getElementById('modal-historial-producto');
+  if(modal && e.target===modal) cerrarHistorialProducto();
 });
 </script>
-
 <!-- MODAL: Historial de lotes PEPS -->
-
 <div id="modal-historial-producto" style="display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center">
   <div style="background:#fff;border-radius:16px;padding:28px;width:640px;max-width:95vw;max-height:85vh;overflow-y:auto;position:relative">
     <button onclick="cerrarHistorialProducto()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">✕</button>

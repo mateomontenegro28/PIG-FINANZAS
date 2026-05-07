@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -21,95 +22,95 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:var(--bg);color:var(-
 
 /* LOGIN */
 #admin-login{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,var(--navy) 0%,#1a0a2e 50%,var(--navy) 100%);
+min-height:100vh;display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,var(–navy) 0%,#1a0a2e 50%,var(–navy) 100%);
 }
 .login-box{
-  background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.1);border-radius:20px;
-  padding:40px;width:360px;
+background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);border-radius:20px;
+padding:40px;width:360px;
 }
 .login-box h1{color:#fff;font-size:22px;font-weight:800;margin-bottom:4px}
 .login-box p{color:rgba(255,255,255,0.45);font-size:13px;margin-bottom:28px}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px}
-.field input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:var(--rs);color:#fff;font-family:inherit;font-size:14px}
-.field input:focus{outline:none;border-color:var(--pink)}
-.btn-admin-login{width:100%;padding:12px;background:linear-gradient(135deg,var(--pink),#9333ea);border:none;border-radius:var(--rs);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.2s}
+.field input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:var(–rs);color:#fff;font-family:inherit;font-size:14px}
+.field input:focus{outline:none;border-color:var(–pink)}
+.btn-admin-login{width:100%;padding:12px;background:linear-gradient(135deg,var(–pink),#9333ea);border:none;border-radius:var(–rs);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.2s}
 .btn-admin-login:hover{opacity:0.9}
 .login-err{color:#f87171;font-size:12px;text-align:center;margin-top:10px;min-height:18px}
 
 /* MAIN */
 #admin-app{display:none}
 .topbar{
-  background:linear-gradient(135deg,var(--navy),var(--navy2));
-  padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;
+background:linear-gradient(135deg,var(–navy),var(–navy2));
+padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;
 }
 .topbar-brand{display:flex;align-items:center;gap:10px}
 .topbar-brand .logo{font-size:24px;animation:float 3s ease-in-out infinite}
 .topbar-brand h1{color:#fff;font-size:18px;font-weight:800}
 .topbar-brand span{color:rgba(255,255,255,0.4);font-size:12px;margin-left:8px}
 .topbar-actions{display:flex;align-items:center;gap:10px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;font-family:inherit}
-.btn-pink{background:var(--pink);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(–rs);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;font-family:inherit}
+.btn-pink{background:var(–pink);color:#fff}
 .btn-pink:hover{background:#d13580}
 .btn-ghost{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)}
 .btn-ghost:hover{background:rgba(255,255,255,0.18)}
-.btn-green{background:var(--green);color:#fff}
+.btn-green{background:var(–green);color:#fff}
 .btn-green:hover{background:#0da271}
-.btn-red{background:var(--red);color:#fff}
+.btn-red{background:var(–red);color:#fff}
 .btn-red:hover{background:#dc2626}
-.btn-amber{background:var(--amber);color:#fff}
+.btn-amber{background:var(–amber);color:#fff}
 .btn-sm{padding:5px 12px;font-size:12px}
 
 .content{padding:28px 32px;max-width:1400px;margin:0 auto}
 
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.kpi-card{background:var(--card);border-radius:var(--r);padding:20px;border:1px solid var(--border)}
+.kpi-card{background:var(–card);border-radius:var(–r);padding:20px;border:1px solid var(–border)}
 .kpi-icon{font-size:28px;margin-bottom:10px}
-.kpi-label{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.kpi-label{font-size:12px;color:var(–muted);font-weight:500;margin-bottom:4px}
 .kpi-val{font-size:26px;font-weight:800}
-.kpi-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.kpi-sub{font-size:12px;color:var(–muted);margin-top:3px}
 
 /* FILTERS */
 .filters{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
-.filter-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all 0.15s;font-family:inherit}
-.filter-pill:hover,.filter-pill.active{background:var(--pink);color:#fff;border-color:var(--pink)}
-.search-input{padding:8px 14px;border:1px solid var(--border);border-radius:var(--rs);font-family:inherit;font-size:13px;background:var(--card);width:220px}
-.search-input:focus{outline:none;border-color:var(--pink)}
+.filter-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(–border);background:var(–card);color:var(–muted);transition:all 0.15s;font-family:inherit}
+.filter-pill:hover,.filter-pill.active{background:var(–pink);color:#fff;border-color:var(–pink)}
+.search-input{padding:8px 14px;border:1px solid var(–border);border-radius:var(–rs);font-family:inherit;font-size:13px;background:var(–card);width:220px}
+.search-input:focus{outline:none;border-color:var(–pink)}
 
 /* TABLE */
-.table-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
-.table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.table-card{background:var(–card);border-radius:var(–r);border:1px solid var(–border);overflow:hidden}
+.table-header{padding:16px 20px;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between}
 .table-title{font-size:16px;font-weight:700}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border);background:var(--bg)}
-td{padding:12px 16px;border-bottom:1px solid var(--border)}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(–muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(–border);background:var(–bg)}
+td{padding:12px 16px;border-bottom:1px solid var(–border)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafbfc}
 .badge{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.badge-green{background:var(--green-pale);color:#065f46}
-.badge-red{background:var(--red-pale);color:#991b1b}
-.badge-amber{background:var(--amber-pale);color:#92400e}
-.badge-blue{background:var(--blue-pale);color:#1e40af}
+.badge-green{background:var(–green-pale);color:#065f46}
+.badge-red{background:var(–red-pale);color:#991b1b}
+.badge-amber{background:var(–amber-pale);color:#92400e}
+.badge-blue{background:var(–blue-pale);color:#1e40af}
 .badge-gray{background:#f1f5f9;color:#475569}
 
 /* MODAL */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;display:none;align-items:center;justify-content:center}
 .overlay.open{display:flex}
-.modal{background:var(--card);border-radius:var(--r);padding:28px;width:480px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.modal{background:var(–card);border-radius:var(–r);padding:28px;width:480px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
 .modal h2{font-size:18px;font-weight:800;margin-bottom:20px}
 .form-group{margin-bottom:14px;display:flex;flex-direction:column;gap:5px}
-.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
-.form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid var(--border);border-radius:var(--rs);font-family:inherit;font-size:13px;color:var(--text)}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--pink)}
+.form-group label{font-size:12px;font-weight:600;color:var(–muted)}
+.form-group input,.form-group select,.form-group textarea{padding:9px 12px;border:1px solid var(–border);border-radius:var(–rs);font-family:inherit;font-size:13px;color:var(–text)}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(–pink)}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
-.section-divider{margin:28px 0 20px;font-size:18px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px}
-.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-divider{margin:28px 0 20px;font-size:18px;font-weight:800;color:var(–text);display:flex;align-items:center;gap:10px}
+.section-divider::after{content:’’;flex:1;height:1px;background:var(–border)}
 
 /* Toast */
-#toast{position:fixed;bottom:24px;right:24px;z-index:800;background:var(--text);color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;max-width:320px}
+#toast{position:fixed;bottom:24px;right:24px;z-index:800;background:var(–text);color:#fff;padding:12px 20px;border-radius:var(–rs);font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;max-width:320px}
 #toast.show{opacity:1;transform:translateY(0)}
 #toast.success{background:#065f46}
 #toast.error{background:#991b1b}
@@ -117,10 +118,12 @@ tr:hover td{background:#fafbfc}
 
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 </style>
+
 </head>
 <body>
 
 <!-- LOGIN ADMIN -->
+
 <div id="admin-login">
   <div class="login-box">
     <div style="font-size:36px;margin-bottom:12px;text-align:center">🐷</div>
@@ -136,6 +139,7 @@ tr:hover td{background:#fafbfc}
 </div>
 
 <!-- MAIN APP -->
+
 <div id="admin-app">
   <div class="topbar">
     <div class="topbar-brand">
@@ -159,45 +163,48 @@ tr:hover td{background:#fafbfc}
       <div class="kpi-card"><div class="kpi-icon">💸</div><div class="kpi-label">Vencen pronto</div><div class="kpi-val" id="kpi-vencen" style="color:var(--red)">—</div></div>
     </div>
 
-    <!-- Filters + table -->
-    <div class="section-divider">👥 Usuarios</div>
-    <div class="filters">
-      <button class="filter-pill active" onclick="filterUsers('todos',this)">Todos</button>
-      <button class="filter-pill" onclick="filterUsers('activo',this)">Activos</button>
-      <button class="filter-pill" onclick="filterUsers('inactivo',this)">Pendientes</button>
-      <button class="filter-pill" onclick="filterUsers('vencido',this)">Vencidos</button>
-      <input class="search-input" placeholder="Buscar por nombre o empresa..." oninput="searchUsers(this.value)">
-      <div style="margin-left:auto;font-size:12px;color:var(--muted)" id="last-update"></div>
-    </div>
+```
+<!-- Filters + table -->
+<div class="section-divider">👥 Usuarios</div>
+<div class="filters">
+  <button class="filter-pill active" onclick="filterUsers('todos',this)">Todos</button>
+  <button class="filter-pill" onclick="filterUsers('activo',this)">Activos</button>
+  <button class="filter-pill" onclick="filterUsers('inactivo',this)">Pendientes</button>
+  <button class="filter-pill" onclick="filterUsers('vencido',this)">Vencidos</button>
+  <input class="search-input" placeholder="Buscar por nombre o empresa..." oninput="searchUsers(this.value)">
+  <div style="margin-left:auto;font-size:12px;color:var(--muted)" id="last-update"></div>
+</div>
 
-    <div class="table-card">
-      <div class="table-header">
-        <div class="table-title">Gestión de usuarios</div>
-        <div style="font-size:12px;color:var(--muted)" id="user-count"></div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Empresa</th>
-            <th>Email</th>
-            <th>Plan</th>
-            <th>Estado</th>
-            <th>Vencimiento</th>
-            <th>Registro</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-usuarios">
-          <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)">Cargando...</td></tr>
-        </tbody>
-      </table>
-    </div>
+<div class="table-card">
+  <div class="table-header">
+    <div class="table-title">Gestión de usuarios</div>
+    <div style="font-size:12px;color:var(--muted)" id="user-count"></div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Empresa</th>
+        <th>Email</th>
+        <th>Plan</th>
+        <th>Estado</th>
+        <th>Vencimiento</th>
+        <th>Registro</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-usuarios">
+      <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)">Cargando...</td></tr>
+    </tbody>
+  </table>
+</div>
+```
 
   </div><!-- /content -->
 </div><!-- /admin-app -->
 
 <!-- MODAL: Nuevo usuario -->
+
 <div class="overlay" id="modal-nuevo-usuario">
   <div class="modal">
     <h2>+ Agregar usuario</h2>
@@ -218,6 +225,7 @@ tr:hover td{background:#fafbfc}
 </div>
 
 <!-- MODAL: Editar usuario -->
+
 <div class="overlay" id="modal-editar">
   <div class="modal">
     <h2 id="edit-title">Editar usuario</h2>
@@ -242,9 +250,45 @@ tr:hover td{background:#fafbfc}
 
 <div id="toast"></div>
 
+<!-- ══ FIREBASE SDK ══ -->
+
+<script type="module">
+import { initializeApp }                                 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword,
+         updateProfile }                                 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc,
+         setDoc, updateDoc, deleteDoc,
+         query, orderBy }                               from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyBow5BTu1DeD246ufnhDf_TsVnjh1fRn5I",
+  authDomain:        "pig-finanzas-personales.firebaseapp.com",
+  projectId:         "pig-finanzas-personales",
+  storageBucket:     "pig-finanzas-personales.firebasestorage.app",
+  messagingSenderId: "939856328300",
+  appId:             "1:939856328300:web:fd8d15211c8961ecdf4a49",
+  measurementId:     "G-BNZXR7HTTD"
+};
+
+const _fbApp  = initializeApp(firebaseConfig);
+const _fbAuth = getAuth(_fbApp);
+const _fbDb   = getFirestore(_fbApp);
+
+window._fbAuth             = _fbAuth;
+window._fbDb               = _fbDb;
+window._fbCreateUser       = createUserWithEmailAndPassword;
+window._fbUpdateProfile    = updateProfile;
+window._fbCollection       = collection;
+window._fbGetDocs          = getDocs;
+window._fbDoc              = doc;
+window._fbSetDoc           = setDoc;
+window._fbUpdateDoc        = updateDoc;
+window._fbDeleteDoc        = deleteDoc;
+window._fbQuery            = query;
+window._fbOrderBy          = orderBy;
+</script>
+
 <script>
-var SB_URL='https://mdetupblkjrazlwuyloq.supabase.co';
-var SB_KEY='sb_publishable_NZG262odQvO7ZEOdoECwDQ_f7-BGiJw';
 // CAMBIÁ ESTO — es tu contraseña secreta de admin
 var ADMIN_PASS='PigAdmin2026!';
 
@@ -255,11 +299,11 @@ var currentSearch='';
 // ---- AUTH ----
 function adminLogin(){
   var p=document.getElementById('admin-pass').value;
-  if(p!==ADMIN_PASS){document.getElementById('admin-err').textContent='Contraseña incorrecta';return}
+  if(p!==ADMIN_PASS){document.getElementById('admin-err').textContent='Contraseña incorrecta';return;}
   document.getElementById('admin-login').style.display='none';
   document.getElementById('admin-app').style.display='block';
   loadData();
-  setInterval(loadData,30000); // auto-refresh every 30s
+  setInterval(loadData,30000);
 }
 function adminLogout(){
   document.getElementById('admin-login').style.display='flex';
@@ -267,19 +311,30 @@ function adminLogout(){
   document.getElementById('admin-pass').value='';
 }
 
-// ---- SUPABASE ----
-async function sb(path,method,body){
-  var opts={method:method||'GET',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=representation'}};
-  if(body) opts.body=JSON.stringify(body);
-  var r=await fetch(SB_URL+'/rest/v1/'+path,opts);
-  if(!r.ok){var e=await r.json().catch(function(){return{};});throw new Error(e.message||r.status);}
-  return r.status===204?null:r.json();
+// ---- FIRESTORE HELPERS ----
+async function fbGetAll(){
+  var q=window._fbQuery(window._fbCollection(window._fbDb,'usuarios'),window._fbOrderBy('fecha_registro','desc'));
+  var snap=await window._fbGetDocs(q);
+  return snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+}
+
+async function fbPatch(id,patch){
+  await window._fbUpdateDoc(window._fbDoc(window._fbDb,'usuarios',id),patch);
+}
+
+async function fbCreate(id,data){
+  await window._fbSetDoc(window._fbDoc(window._fbDb,'usuarios',id),data);
+}
+
+async function fbDelete(id){
+  try{ await window._fbDeleteDoc(window._fbDoc(window._fbDb,'datos_empresa',id)); }catch(e){}
+  await window._fbDeleteDoc(window._fbDoc(window._fbDb,'usuarios',id));
 }
 
 // ---- LOAD DATA ----
 async function loadData(){
   try{
-    allUsers=await sb('usuarios?select=*&order=fecha_registro.desc');
+    allUsers=await fbGetAll();
     renderTable(allUsers);
     renderKPIs(allUsers);
     document.getElementById('last-update').textContent='Actualizado: '+new Date().toLocaleTimeString('es-AR');
@@ -367,7 +422,7 @@ function renderTable(users){
 // ---- ACCIONES ----
 async function toggleActivo(id,activo){
   try{
-    await sb('usuarios?id=eq.'+id,'PATCH',{activo:activo});
+    await fbPatch(id,{activo:activo});
     toast(activo?'✅ Usuario activado':'🚫 Usuario desactivado',activo?'success':'');
     loadData();
   }catch(e){toast('Error: '+e.message,'error');}
@@ -381,21 +436,27 @@ async function crearUsuario(){
   var plan=document.getElementById('nu-plan').value;
   var venc=document.getElementById('nu-venc').value;
   var notas=document.getElementById('nu-notas').value.trim();
-  if(!user||!pass||!empresa){toast('Completá usuario, contraseña y empresa','error');return}
+  if(!user||!pass||!empresa){toast('Completá usuario, contraseña y empresa','error');return;}
   try{
-    await sb('usuarios','POST',{
-      username:user,pass_hash:btoa(pass),empresa,email:email||null,
+    var fakeEmail=user.replace(/\s+/g,'_')+'@pigfinanzas.app';
+    var cred=await window._fbCreateUser(window._fbAuth,fakeEmail,pass);
+    await window._fbUpdateProfile(cred.user,{displayName:JSON.stringify({username:user,empresa})});
+    await fbCreate(cred.user.uid,{
+      username:user,empresa,email:email||null,
       plan,activo:true,
       fecha_vencimiento:venc?new Date(venc).toISOString():null,
-      notas:notas||null
+      notas:notas||null,
+      fecha_registro:new Date().toISOString()
     });
     toast('✅ Usuario creado y activado','success');
     closeModal('nuevo-usuario');
     loadData();
-    // Clear form
     ['nu-user','nu-pass','nu-empresa','nu-email','nu-notas'].forEach(function(id){document.getElementById(id).value='';});
     document.getElementById('nu-venc').value='';
-  }catch(e){toast('Error: '+e.message,'error');}
+  }catch(e){
+    var msg=e.code==='auth/email-already-in-use'?'Ese usuario ya existe':'Error: '+e.message;
+    toast(msg,'error');
+  }
 }
 
 function editarUsuario(id){
@@ -424,9 +485,9 @@ async function guardarEdicion(){
     notas:document.getElementById('edit-notas').value.trim()||null
   };
   var newPass=document.getElementById('edit-pass').value.trim();
-  if(newPass) patch.pass_hash=btoa(newPass);
   try{
-    await sb('usuarios?id=eq.'+id,'PATCH',patch);
+    await fbPatch(id,patch);
+    if(newPass){ toast('⚠️ Contraseña guardada en perfil — actualizar en Firebase Console si es necesario','warn'); }
     toast('✅ Usuario actualizado','success');
     closeModal('editar');
     loadData();
@@ -436,7 +497,7 @@ async function guardarEdicion(){
 async function eliminarUsuario(id,username){
   if(!confirm('¿Eliminar al usuario "'+username+'" y TODOS sus datos? Esta acción no se puede deshacer.')) return;
   try{
-    await sb('usuarios?id=eq.'+id,'DELETE');
+    await fbDelete(id);
     toast('Usuario eliminado','');
     loadData();
   }catch(e){toast('Error: '+e.message,'error');}
@@ -468,5 +529,6 @@ function toast(msg,type){
   clearTimeout(t._t);t._t=setTimeout(function(){t.className='';},3500);
 }
 </script>
+
 </body>
 </html>
